@@ -162,26 +162,60 @@ router.post("/sjac", function (req, res) {
 // POST request 
 // Add a user to db
 
+// router.post("/ur", (req, res) => {
+//     let h = 0;
+    
+    
+//     // const newUser = new User({
+//     //     name: req.body.name,
+//     //     email: req.body.email,
+//     //     password: req.body.password,
+//     //     contactNumber: req.body.contactNumber,
+//     //     age: req.body.age,
+//     //     batchName: req.body.batchName,
+//     //     wallet: h
+//     // });
+    
+//     // newUser.save()
+//     //     .then(user => {
+//     //         res.status(200).json(user);
+//     //     })
+//     //     .catch(err => {
+//     //         res.status(400).send(err);
+//     //     });
+// });
 router.post("/ur", (req, res) => {
-    let h = 0;
-    const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        contactNumber: req.body.contactNumber,
-        age: req.body.age,
-        batchName: req.body.batchName,
-        wallet: h
+    const email=req.body.email;
+    let h=0;
+    User.findOne({ email }, function(err, user) {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err); // Handle database error
+        } else if (user) {
+            console.log(user);
+            res.status(200).json({ message: 'Email already exists' });
+        } else {
+            const newUser = new User({
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password,
+                contactNumber: req.body.contactNumber,
+                age: req.body.age,
+                batchName: req.body.batchName,
+                wallet: h
+            });
+            console.log(newUser);
+            newUser.save()
+                .then(savedUser => {
+                    res.status(200).json(savedUser);
+                })
+                .catch(saveErr => {
+                    res.status(400).send(saveErr);
+                });
+        }
     });
-
-    newUser.save()
-        .then(user => {
-            res.status(200).json(user);
-        })
-        .catch(err => {
-            res.status(400).send(err);
-        });
 });
+
 
 
 
@@ -212,24 +246,37 @@ router.post("/placing", (req, res) => {
 });
 
 router.post("/vr", (req, res) => {
-    const newUser = new Vendor({
-        name: req.body.name,
-        shopname: req.body.shopname,
-        password: req.body.password,
-        email: req.body.email,
-        contactnumber: req.body.contactnumber,
-        opentime: req.body.opentime,
-        closetime: req.body.closetime,
-        counter:0
-    });
-
-    newUser.save()
-        .then(user => {
-            res.status(200).json(user);
-        })
-        .catch(err => {
-            res.status(400).send(err);
-        });
+    const email=req.body.email;
+    Vendor.findOne({ email }, function(err, user) {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err); // Handle database error
+        } else if (user) {
+            console.log(user);
+            res.status(200).json({ message: 'Email already exists' });
+        }
+        else {
+            const newUser = new Vendor({
+                name: req.body.name,
+                shopname: req.body.shopname,
+                password: req.body.password,
+                email: req.body.email,
+                contactnumber: req.body.contactnumber,
+                opentime: req.body.opentime,
+                closetime: req.body.closetime,
+                counter:0
+            });
+        
+            newUser.save()
+                .then(user => {
+                    res.status(200).json(user);
+                })
+                .catch(err => {
+                    res.status(400).send(err);
+                });
+            }
+    
+});
 });
 
 
@@ -1014,6 +1061,53 @@ router.post("/emphasiser", function (req, res) {
     })
 });
 
+// router.post("/vupdate", (req, res) => {
+//     const name = req.body.name;
+//     const email = req.body.email;
+//     const password = req.body.password;
+//     const contactNumber = req.body.contactnumber;
+//     const opentime = req.body.opentime;
+//     const closetime = req.body.closetime;
+//     const shopname = req.body.shopname;
+
+
+
+//     // Find user by email
+//     Vendor.findOne({ email }).then(user => {
+//         // Check if user email exists
+//         if (!user) {
+
+//             alert("user not exists");
+
+
+//             //halo=1;
+
+//             // return res.status(404).json({
+//             // 	error: "Email not found",
+//             // });
+//         }
+//         else {
+//             user.name = name;
+//             user.email = email;
+//             user.password = password;
+//             user.contactnumber = contactNumber;
+//             user.shopname = shopname;
+//             user.opentime = opentime;
+//             user.closetime = closetime;
+
+//             user.save();
+//             res.send("Updated");
+
+
+//         }
+//     });
+
+
+
+
+// });
+
+
 router.post("/vupdate", (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -1049,17 +1143,32 @@ router.post("/vupdate", (req, res) => {
             user.closetime = closetime;
 
             user.save();
-            res.send("Updated");
+    
+            Food.find({ email }).then(items => {
+                if (!items || items.length === 0) {
+                    // Handle the case where no items were found
+                } else {
+                    // Update each item in the array
+                    items.forEach(item => {
+                        item.opentime = opentime;
+                        item.closetime = closetime;
+                        item.save()
+                            .then(updatedItem => {
+                                console.log(item);
+                            })
+                            .catch(error => {
+                                console.log('error while updating the console');
+                            });
+                    });
+                }
+            });
+            res.send("updated");
 
 
         }
     });
 
-
-
-
 });
-
 
 
 router.post("/addfood", (req, res) => {
