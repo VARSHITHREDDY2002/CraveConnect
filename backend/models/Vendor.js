@@ -34,6 +34,11 @@ const VendorSchema = new Schema({
 	counter:{
 		type: Number,
 		required: false
+	},
+	money:{
+		type: Number,
+		required: false,
+		default:0
 	}
 });
 

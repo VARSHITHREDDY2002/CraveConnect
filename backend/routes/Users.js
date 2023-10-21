@@ -26,6 +26,30 @@ router.get("/namin", function (req, res) {
     })
 });
 
+router.post("/available", function (req, res) {
+    const id=req.body.helo;
+
+
+    Food.findOne(id, function (err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            if(users.status==="Hide")
+            {
+                users.status="Unhide";
+                users.save();
+            }
+            else
+            {
+                users.status="Hide";
+                users.save();
+            }
+            console.log(users);
+            res.json(users);
+        }
+    })
+});
+
 
 
 router.post("/getshop", (req, res) => {
@@ -105,10 +129,35 @@ router.post("/lening", function (req, res) {
             console.log(err);
         } else {
             res.json(users);
+
         }
     })
 });
 
+router.post("/money", function (req, res) {
+    const email = req.body.email;
+
+    console.log(email);
+    Vendor.findOne({ email }).then(user => {
+        // Check if user email exists
+        if (!user) {
+            
+            alert("user not exists");
+
+
+            //halo=1;
+
+            // return res.status(404).json({
+            // 	error: "Email not found",
+            // });
+        }
+        else {
+            console.log(user);
+            res.json(user);
+
+        }
+    });
+});
 
 router.get("/ten", function (req, res) {
 
@@ -992,6 +1041,7 @@ router.post("/emphasis", function (req, res) {
                         
                         if(user.counter<10){
                             users.status = "Accepted";
+                            user.money = user.money + users.quantity*users.price;
                             user.counter=user.counter+1;
                             
 
@@ -1037,6 +1087,49 @@ router.post("/emphasis", function (req, res) {
     })
 });
 
+// router.post("/rating",function(req,res){
+//     const name1 = req.body.name;
+//     const email1 = req.body.email;
+//     const rat1 = req.body.rat;
+//     Food.findOne({name:name1,email:email1}.then(food=>{
+//         if(err){
+//             console.log(err);
+//             res.send("An error occured");
+//         }
+//         else{
+//             const prevrating = food.rating;
+//             const prevorders = food.soldcount;
+//             food.rating = Math.floor(((prevrating*prevorders)+rat1)/(prevorders+1));
+//             food.soldcount = prevorders+1;
+//             food.save();
+//             res.send("success");
+//         }
+//     }))
+// });
+
+
+router.post("/rating", (req, res) => {
+    const id = req.body.id;
+    const email = req.body.email;
+    const name = req.body.name;
+    const rating = req.body.rating;
+        console.log(id);
+        // Next, update the food item's rating and soldcount
+        Food.findOne({ email, name }, (err, foodItem) => {
+            foodItem.rating = (rating + (foodItem.soldcount * foodItem.rating)) / (foodItem.soldcount + 1);
+            foodItem.soldcount = foodItem.soldcount + 1;
+            foodItem.save((err) => {
+                console.log(id);
+                Order.findOne({ _id: id }, (err, order) => {
+                    order.ratstatus = "true";
+                    console.log("hu"+order);
+                    order.save()
+                    res.status(200).send('Rating updated successfully');
+                });
+            });
+        });
+      //  res.status(200).send('Rating updated successfully');
+    });
 
 
 
@@ -1167,8 +1260,11 @@ router.post("/vupdate", (req, res) => {
 
         }
     });
+    
+
 
 });
+
 
 
 router.post("/addfood", (req, res) => {

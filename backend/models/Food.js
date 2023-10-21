@@ -46,6 +46,11 @@ const FoodSchema = new Schema({
 		type:Number,
 		required:false,
 		
+	},
+	status:{
+		type:String,
+		required:false,
+		default:"Hide"
 	}
 });
 

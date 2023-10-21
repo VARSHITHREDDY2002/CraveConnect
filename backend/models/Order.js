@@ -44,7 +44,12 @@ const Orderschema = new Schema({
         type:Number,
         required:false,
 		default:0
-    }
+    },
+	ratstatus:{
+		type:String,
+        required:false,
+		default:false
+	}
 
 
 });

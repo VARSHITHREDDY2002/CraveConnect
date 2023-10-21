@@ -15,6 +15,7 @@ import TableBody from "@mui/material/TableBody";
 
 
 const Homersk = (props) => {
+    const [vendor,setVendors]=useState(0);
     const [users, setUsers] = useState([]);
     const [use, setUse] = useState(0);
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Homersk = (props) => {
     var hello=0;
     var yo=0;
     var ko=0;
+    var money=0;
 
 
 
@@ -32,6 +34,14 @@ const Homersk = (props) => {
         const mi = {
             email: localStorage.getItem("uemail")
         }
+        axios
+            .post("http://localhost:4000/user/money", mi)
+            .then((response) => {
+                setVendors(response.data.money);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         axios
             .post("http://localhost:4000/user/lening", mi)
             .then((response) => {
@@ -66,7 +76,7 @@ const Homersk = (props) => {
 
 
                                         {(()=>{
-                                            console.log(user);
+                                            //console.log(user);
 
                                             if(user.status=="Placed"){
                                                 hello=hello+1;
@@ -102,7 +112,8 @@ const Homersk = (props) => {
             </Grid>
             <div style={{ textAlign: "center" }}>
 
-                Net Amount Received:40
+                Net Amount Received:{vendor}
+
                 <br/>
                 Orders delivered : {hello}
                 <br/>

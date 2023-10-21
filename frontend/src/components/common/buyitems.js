@@ -89,7 +89,9 @@ const Iod = (props) => {
                     <TableCell>{ind+1}</TableCell>
                     <TableCell>{user.type}</TableCell>
                     <TableCell>{user.name}</TableCell>
-                    <TableCell>{user.rating}</TableCell>
+
+                    <TableCell>{parseFloat(user.rating.toFixed(1))}</TableCell>
+
                     <TableCell>{user.price}</TableCell>
                     <TableCell>{user.shopname}</TableCell>
                     {/* <TableCell>{user.vendorname}</TableCell> */}
@@ -99,7 +101,7 @@ const Iod = (props) => {
                       let ewyuu = parseInt(user.closetime);
                       console.log(ewy);
 
-                      if (hour >= ewy && hour <= ewyuu) {
+                      if (hour >= ewy && hour <= ewyuu && user.status === "Hide") {
                         return <Button variant="contained" onClick={() => {
                           localStorage.setItem("O_id", user._id);
 

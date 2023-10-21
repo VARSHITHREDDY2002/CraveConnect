@@ -28,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 const FoodList = (props) => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const [status,setStatus]=useState("Hide");
 
 
   useEffect(() => {
@@ -38,6 +39,8 @@ const FoodList = (props) => {
       .post("http://localhost:4000/user",heh)
       .then((response) => {
         setUsers(response.data);
+        //window.location.reload(false);
+        
 
       })
       .catch((error) => {
@@ -65,6 +68,19 @@ const FoodList = (props) => {
 
 
 
+  };
+  const onSubmit1 = (helo) => {
+    axios
+      .post("http://localhost:4000/user/available",helo)
+      .then((response) => {
+        setStatus(response.data.status);
+        window.location.reload(false);
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    
   };
 
 
@@ -98,7 +114,7 @@ const FoodList = (props) => {
                     <TableCell>{ind}</TableCell>
                     <TableCell>{user.type}</TableCell>
                     <TableCell>{user.name}</TableCell>
-                    <TableCell>{user.rating}</TableCell>
+                    <TableCell>{parseFloat(user.rating.toFixed(1))}</TableCell>
                     <TableCell>{user.price}</TableCell>
                     {/* <TableCell> <Button variant="contained" onClick={() => {
                       const nUser = {
@@ -147,6 +163,9 @@ const FoodList = (props) => {
                       
             
                       Edit
+                    </Button></TableCell>
+                    <TableCell> <Button variant="contained" onClick={()=>onSubmit1(user._id)}> 
+                      {user.status}
                     </Button></TableCell>
                   </TableRow>
                 ))}

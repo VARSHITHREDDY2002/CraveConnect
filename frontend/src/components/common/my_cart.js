@@ -56,6 +56,54 @@ const FoodLista = (props) => {
 
     }
 
+    const [selectedUser, setSelectedUser] = useState(null); // State to store the selected user
+    const [showButtons, setShowButtons] = useState(true); // State to manage button visibility
+    const [isRatingVisible, setIsRatingVisible] = useState(false); // State for rating visibility
+    const [userRating, setUserRating] = useState(0); // State to store the user's rating
+
+    const handleRateButtonClick = (user) => {
+        setIsRatingVisible(true);
+        setSelectedUser(user); // Store the selected user data
+    }
+
+    const handleRatingChange = (event) => {
+        const newRating = parseInt(event.target.value, 10);
+        setUserRating(newRating);
+    }
+
+    const handleSubmitRating = () => {
+        // Check if a user is selected
+        if (selectedUser) {
+            // Prepare the data to send to the backend
+            const ratingData = {
+                id : selectedUser._id,
+                email: selectedUser.vemail,
+                name: selectedUser.name,
+                rating: userRating, // The rating value selected by the user
+            };
+            console.log(ratingData);
+            //setIsRatingVisible(false);
+            //setShowButtons(false);
+           // Make an axios request to send the rating data to the backend
+        //    axios.post("http://localhost:4000/user/ratstatus",ratingData).then((response)=>{
+        //     console.log(response.data);
+        //    });
+            axios.post("http://localhost:4000/user/rating", ratingData)
+                .then((response) => {
+                    console.log('Rating submitted successfully:', response.data);
+                    setIsRatingVisible(false);
+                    setSelectedUser(null); // Clear the selected user data
+                    setShowButtons(true); // Hide all the buttons
+                    window.location.reload(false);
+
+                })
+                .catch((error) => {
+                    console.error('Error submitting rating:', error);
+                });
+            //console.log(userRating);
+        }
+    }
+
     return (
         <div className="container">
             <Navbarer />
@@ -124,20 +172,24 @@ const FoodLista = (props) => {
                                             }
 
                                         })()}</TableCell>
-                                        <TableCell>{(() => {
-                                            if (user.status === "completed") {
-                                                return <Button variant="contained" onClick={() => {
-
-
-                                                }}>
-
-
-
-                                                    RateItem
-                                                </Button>
-                                            }
-
-                                        })()}</TableCell>
+                                        <TableCell>
+                                        {user.status === 'completed' && user.ratstatus ==="false"? (
+                                    isRatingVisible && selectedUser === user ? (
+                                        <div>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                max="5"
+                                                value={userRating}
+                                                onChange={handleRatingChange}
+                                            />
+                                            <Button variant="contained" onClick={handleSubmitRating}>Submit Rating</Button>
+                                        </div>
+                                    ) : showButtons ? (
+                                        <Button variant="contained" onClick={() => handleRateButtonClick(user)}>Rate Item</Button>
+                                    ) : null
+                                ) : null}
+                                        </TableCell>
 
 
 
