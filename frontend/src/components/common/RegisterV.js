@@ -15,10 +15,6 @@ const Register = (props) => {
   const [opentime, setopentime] = useState("");
   const [closetime, setclosetime] = useState("");
 
- 
- 
-
-
   const onChangeUsername = (event) => {
     setName(event.target.value);
   };
@@ -35,7 +31,6 @@ const Register = (props) => {
     setEmail(event.target.value);
   };
 
-  
   const onChangecontactNumber = (event) => {
     setContactNumber(event.target.value);
   };
@@ -56,9 +51,6 @@ const Register = (props) => {
     setContactNumber("");
     setopentime("");
     setclosetime("");
-
-
-   
   };
 
   const onSubmit = (event) => {
@@ -67,98 +59,92 @@ const Register = (props) => {
     const newUser = {
       name: name,
       shopname: shopname,
-      password : password,
-      email : email,
+      password: password,
+      email: email,
       contactnumber: contactnumber,
-      opentime :opentime,
-      closetime : closetime,
-      
+      opentime: opentime,
+      closetime: closetime,
     };
 
-    axios
-      .post("http://localhost:4000/user/vr", newUser)
-      .then((response) => {
-        alert("Created\t" + response.data.name);
-        console.log(response.data);
-      });
+    axios.post("http://localhost:4000/user/vr", newUser).then((response) => {
+      alert("Created\t" + response.data.name);
+      console.log(response.data);
+    });
 
     resetInputs();
   };
 
   return (
-    <div className="container">
-    <Navbar/>
-   
+    <>
+      <Navbar />
+      <br />
+      <div className="container">
+        <Grid container align={"center"} spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Name"
+              variant="outlined"
+              value={name}
+              onChange={onChangeUsername}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="ShopName"
+              variant="outlined"
+              value={shopname}
+              onChange={onChangeShopName}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Password"
+              variant="outlined"
+              value={password}
+              onChange={onChangePassword}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Email"
+              variant="outlined"
+              value={email}
+              onChange={onChangeEmail}
+            />
+          </Grid>
 
-  
-   
-
-<br/>
-    <Grid container align={"center"} spacing={2}>
-      <Grid item xs={12}>
-        <TextField
-          label="Name"
-          variant="outlined"
-          value={name}
-          onChange={onChangeUsername}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="ShopName"
-          variant="outlined"
-          value={shopname}
-          onChange={onChangeShopName}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="Password"
-          variant="outlined"
-          value={password}
-          onChange={onChangePassword}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          value={email}
-          onChange={onChangeEmail}
-        />
-      </Grid>
-      
-      <Grid item xs={12}>
-        <TextField
-          label="ContactNumber"
-          variant="outlined"
-          value={contactnumber}
-          onChange={onChangecontactNumber}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="OpenTime"
-          variant="outlined"
-          value={opentime}
-          onChange={onChangeOpentime}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="CloseTime"
-          variant="outlined"
-          value={closetime}
-          onChange={onChangeclosetime}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <Button variant="contained" onClick={onSubmit}>
-          Register
-        </Button>
-      </Grid>
-    </Grid>
-    </div>
+          <Grid item xs={12}>
+            <TextField
+              label="ContactNumber"
+              variant="outlined"
+              value={contactnumber}
+              onChange={onChangecontactNumber}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="OpenTime"
+              variant="outlined"
+              value={opentime}
+              onChange={onChangeOpentime}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="CloseTime"
+              variant="outlined"
+              value={closetime}
+              onChange={onChangeclosetime}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" onClick={onSubmit}>
+              Register
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+    </>
   );
 };
 

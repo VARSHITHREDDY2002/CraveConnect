@@ -31,23 +31,11 @@ import Tp from "./components/common/toper";
 import Suba from "./components/common/dash";
 
 
-const Layout = () => {
-  return (
-    <div>
-      {/* <Navbar /> */}
-      <div className="container">
-        <Outlet />
-      </div>
-    </div>
-  );
-};
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
-        <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="users" element={<UsersList />} />
           <Route path="register" element={<Hehe1 />} />
@@ -76,7 +64,6 @@ function App() {
           <Route path="Sk" element={<Sk />} />
           <Route path="top" element={<Tp />} />
           <Route path="Suba" element={<Suba />} />
-        </Route>
       </Routes>
     </BrowserRouter>
   );

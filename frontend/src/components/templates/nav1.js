@@ -1,48 +1,184 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import React from 'react';
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import logo from "../common/logo1.jpg";
 
-
-const Navbarer = () => {
+const Navbarer = (activePage) => {
   const navigate = useNavigate();
-
+  const [isaddtocartHovering, setaddtocartHovering] = useState(false);
+  const [iscarterHovering, setcarterHovering] = useState(false);
+  const [isuprofiHovering, setuprofiHovering] = useState(false);
+  const [isulogoutHovering, setulogoutHovering] = useState(false);
+  const [isFavorHovering, setFavorHovering] = useState(false);
+  const [isSkHovering, setSkHovering] = useState(false);
+  const handleAddtocartHover = () => {
+    setaddtocartHovering(true);
+  };
+  const handleAddtocartLeave = () => {
+    setaddtocartHovering(false);
+  };
+  const handlecarterHover = () => {
+    setcarterHovering(true);
+  };
+  const handlecarterLeave = () => {
+    setcarterHovering(false);
+  };
+  const handleprofileHover = () => {
+    setuprofiHovering(true);
+  };
+  const handleprofileLeave = () => {
+    setuprofiHovering(false);
+  };
+  const handlelogoutHover = () => {
+    setulogoutHovering(true);
+  };
+  const handlelogoutLeave = () => {
+    setulogoutHovering(false);
+  };
+  const handleFavourHover = () => {
+    setFavorHovering(true);
+  };
+  const handleFavourLeave = () => {
+    setFavorHovering(false);
+  };
+  const handleSkHover = () => {
+    setSkHovering(true);
+  };
+  const handleSkLeave = () => {
+    setSkHovering(false);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        style={{
+          backgroundColor: "transparent",
+          marginTop: "5px",
+          color: "black",
+        }}
+      >
         <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ cursor: "pointer" }}
-            //onClick={() => navigate("/")}
+          <div
+            className="logo"
+            style={{
+              width: "70px",
+              height: "70px",
+              borderRadius: "50%",
+              padding: "5px",
+            }}
           >
-            CraveConnect
-          </Typography>
+            <img
+              onClick={() => navigate("/Uprofi")}
+              src={logo}
+              alt="Logo"
+              style={{ width: "70px", height: "70px", borderRadius: "50%" }}
+            />
+          </div>
           <Box sx={{ flexGrow: 1 }} />
-          <Button color="inherit" onClick={() => navigate("/addtocart")}>
+          <Button
+            onMouseEnter={handleAddtocartHover}
+            onMouseLeave={handleAddtocartLeave}
+            color="inherit"
+            style={{
+              backgroundColor:
+                activePage.activePage === "addtocart" || isaddtocartHovering
+                  ? "#fe8d04"
+                  : "white",
+              width: "20px",
+              border: "1px solid black",
+            }}
+            onClick={() => navigate("/addtocart")}
+          >
             Items
           </Button>
-          {/* <Button color="inherit" onClick={() => navigate("/Suba")}>
-            Dashboard
-          </Button>
-          */}
-          <Button color="inherit" onClick={() => navigate("/carter")}>
+          <Box sx={{ flexGrow: 0.1 }} />
+          <Button
+            onMouseEnter={handlecarterHover}
+            onMouseLeave={handlecarterLeave}
+            color="inherit"
+            style={{
+              backgroundColor:
+                activePage.activePage === "carter" || iscarterHovering
+                  ? "#fe8d04"
+                  : "white",
+              width: "20px",
+              border: "1px solid black",
+            }}
+            onClick={() => navigate("/carter")}
+          >
             MyCart
           </Button>
-          <Button color="inherit" onClick={() => navigate("/uprofi")}>
+          <Box sx={{ flexGrow: 0.1 }} />
+          <Button
+            onMouseEnter={handleprofileHover}
+            onMouseLeave={handleprofileLeave}
+            color="inherit"
+            style={{
+              backgroundColor:
+                activePage.activePage === "uprofi" || isuprofiHovering
+                  ? "#fe8d04"
+                  : "white",
+              width: "20px",
+              border: "1px solid black",
+            }}
+            onClick={() => navigate("/uprofi")}
+          >
             My Profile
           </Button>
-          <Button color="inherit" onClick={() => navigate("/ulogout")}>
+          <Box sx={{ flexGrow: 0.1 }} />
+          <Button
+            onMouseEnter={handlelogoutHover}
+            onMouseLeave={handlelogoutLeave}
+            color="inherit"
+            style={{
+              backgroundColor:
+                activePage.activePage === "ulogout" || isulogoutHovering
+                  ? "#fe8d04"
+                  : "white",
+              width: "20px",
+              border: "1px solid black",
+            }}
+            onClick={() => navigate("/ulogout")}
+          >
             Logout
           </Button>
-          <Button color="inherit" onClick={() => navigate("/Favour")}>
+          <Box sx={{ flexGrow: 0.1 }} />
+          <Button
+            onMouseEnter={handleFavourHover}
+            onMouseLeave={handleFavourLeave}
+            color="inherit"
+            style={{
+              backgroundColor:
+                activePage.activePage === "Favour" || isFavorHovering
+                  ? "#fe8d04"
+                  : "white",
+              width: "20px",
+              border: "1px solid black",
+            }}
+            onClick={() => navigate("/Favour")}
+          >
             Favourites
           </Button>
-          <Button color="inherit" onClick={() => navigate("/Sk")}>
+          <Box sx={{ flexGrow: 0.1 }} />
+          <Button
+            onMouseEnter={handleSkHover}
+            onMouseLeave={handleSkLeave}
+            color="inherit"
+            style={{
+              backgroundColor:
+                activePage.activePage === "Sk" || isSkHovering
+                  ? "#fe8d04"
+                  : "white",
+              width: "20px",
+              border: "1px solid black",
+            }}
+            onClick={() => navigate("/Sk")}
+          >
             Mywallet
           </Button>
         </Toolbar>

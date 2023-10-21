@@ -14,8 +14,6 @@ const Register = (props) => {
   const [age, setAge] = useState("");
   const [batchName, setBatchName] = useState("");
 
-
-
   const onChangeUsername = (event) => {
     setName(event.target.value);
   };
@@ -47,9 +45,6 @@ const Register = (props) => {
     setContactNumber("");
     setAge("");
     setBatchName("");
-
-
-   
   };
 
   const onSubmit = (event) => {
@@ -58,88 +53,82 @@ const Register = (props) => {
     const newUser = {
       name: name,
       email: email,
-      password : password,
-      contactNumber : contactNumber,
-      age : age,
-      batchName :batchName,
-      
+      password: password,
+      contactNumber: contactNumber,
+      age: age,
+      batchName: batchName,
     };
 
-    axios
-      .post("http://localhost:4000/user/ur", newUser)
-      .then((response) => {
-        alert("Created\t" + response.data.name);
-        console.log(response.data);
-      });
+    axios.post("http://localhost:4000/user/ur", newUser).then((response) => {
+      alert("Created\t" + response.data.name);
+      console.log(response.data);
+    });
 
     resetInputs();
   };
 
   return (
-    <div className="container">
-    <Navbar/>
-   
-
-  
-   
-
-<br/>
-    <Grid container align={"center"} spacing={2}>
-      <Grid item xs={12}>
-        <TextField
-          label="Name"
-          variant="outlined"
-          value={name}
-          onChange={onChangeUsername}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          value={email}
-          onChange={onChangeEmail}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="Password"
-          variant="outlined"
-          value={password}
-          onChange={onChangePassword}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="ContactNumber"
-          variant="outlined"
-          value={contactNumber}
-          onChange={onChangecontactNumber}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="Age"
-          variant="outlined"
-          value={age}
-          onChange={onChangeAge}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="BatchName"
-          variant="outlined"
-          value={batchName}
-          onChange={onChangebatchaName}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <Button variant="contained" onClick={onSubmit}>
-          Register
-        </Button>
-      </Grid>
-    </Grid>
-    </div>
+    <>
+      <Navbar></Navbar>
+      <br />
+      <div className="container">
+        <Grid container align={"center"} spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Name"
+              variant="outlined"
+              value={name}
+              onChange={onChangeUsername}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Email"
+              variant="outlined"
+              value={email}
+              onChange={onChangeEmail}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Password"
+              variant="outlined"
+              value={password}
+              onChange={onChangePassword}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="ContactNumber"
+              variant="outlined"
+              value={contactNumber}
+              onChange={onChangecontactNumber}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Age"
+              variant="outlined"
+              value={age}
+              onChange={onChangeAge}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="BatchName"
+              variant="outlined"
+              value={batchName}
+              onChange={onChangebatchaName}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" onClick={onSubmit}>
+              Register
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+    </>
   );
 };
 

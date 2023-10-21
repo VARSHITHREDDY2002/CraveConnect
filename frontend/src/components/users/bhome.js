@@ -3,7 +3,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Navbarer from "../templates/nav1";
 
-
 const Pro = (props) => {
   const [details, setDetails] = useState([]);
   useEffect(() => {
@@ -16,12 +15,16 @@ const Pro = (props) => {
         console.log(error);
       });
   }, []);
-  
-  return <div className="container">
-    <Navbarer/>
-    <br/>
-    <h1 style={{ textAlign: "center" }}>Buyer Home page</h1>
-  </div>;
+
+  return (
+    <>
+      <Navbarer />
+      <div className="container">
+        <br />
+        <h1 style={{ textAlign: "center" }}>Buyer Home page</h1>
+      </div>
+    </>
+  );
 };
 
 export default Pro;

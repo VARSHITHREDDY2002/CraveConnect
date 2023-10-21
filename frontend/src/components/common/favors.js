@@ -12,79 +12,63 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import axios from "axios";
 
-
 const Homersa = (props) => {
+  const [users, setUsers] = useState([]);
+  const [activePage, setActivePage] = useState('Favour');
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const news = {
+      email: localStorage.getItem("uemail"),
+    };
+    axios
+      .post("http://localhost:4000/user/tenner", news)
+      .then((response) => {
+        setUsers(response.data.favs);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
+  return (
+    <>
+      <Navbarer activePage={activePage}/>
 
-    const [users, setUsers] = useState([]);
-    const navigate = useNavigate();
-
-
-    useEffect(() => {
-
-        const news = {
-            email: localStorage.getItem("uemail")
-
-
-        }
-        axios
-            .post("http://localhost:4000/user/tenner", news)
-            .then((response) => {
-                setUsers(response.data.favs);
-
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
-
-
-    
-    return <div className="container">
-        <Navbarer />
-        <br />
-        <br />
-        <br />
-        <div style={{ textAlign: "center",color:"blue"}}>Favourites Dishes...!</div>
+      <br />
+      <br />
+      <br />
+      <div className="container">
+        <div style={{ textAlign: "center", color: "blue" }}>
+          Favourites Dishes...!
+        </div>
         <Grid>
+          <Grid item xs={12} md={9} lg={9}>
+            <Paper>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell> Sr No.</TableCell>
 
-            <Grid item xs={12} md={9} lg={9}>
-                <Paper>
-                    <Table size="small">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell> Sr No.</TableCell>
+                    <TableCell>Name</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users.map((user, ind) => (
+                    <TableRow key={ind}>
+                      <TableCell>{ind + 1}</TableCell>
 
-                                <TableCell>Name</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {users.map((user, ind) => (
-                                <TableRow key={ind}>
-                                    <TableCell>{ind+1}</TableCell>
-
-                                    <TableCell>{user}</TableCell>
-
-
-
-
-
-
-
-
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Paper>
-            </Grid>
+                      <TableCell>{user}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
+          </Grid>
         </Grid>
-
-
-
-
-    </div>
+      </div>
+    </>
+  );
 };
 
 export default Homersa;
