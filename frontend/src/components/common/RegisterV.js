@@ -55,6 +55,12 @@ const Register = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    // if(!email.endsWith("@nitc.ac.in"))
+    // {
+    //    alert("Email should end with @nitc.ac.in");
+    //    setEmail("");
+    //    return;
+    // }
 
     const newUser = {
       name: name,
@@ -67,7 +73,14 @@ const Register = (props) => {
     };
 
     axios.post("http://localhost:4000/user/vr", newUser).then((response) => {
-      alert("Created\t" + response.data.name);
+        if(response.data.message)
+        {
+          alert(response.data.message);
+        }
+        else
+        {
+        alert("Created\t" + response.data.name);
+        }
       console.log(response.data);
     });
 

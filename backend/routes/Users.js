@@ -26,6 +26,30 @@ router.get("/namin", function (req, res) {
     })
 });
 
+router.post("/available", function (req, res) {
+    const id=req.body.helo;
+
+
+    Food.findOne(id, function (err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            if(users.status==="Hide")
+            {
+                users.status="Unhide";
+                users.save();
+            }
+            else
+            {
+                users.status="Hide";
+                users.save();
+            }
+            console.log(users);
+            res.json(users);
+        }
+    })
+});
+
 
 
 router.post("/getshop", (req, res) => {
@@ -105,10 +129,35 @@ router.post("/lening", function (req, res) {
             console.log(err);
         } else {
             res.json(users);
+
         }
     })
 });
 
+router.post("/money", function (req, res) {
+    const email = req.body.email;
+
+    console.log(email);
+    Vendor.findOne({ email }).then(user => {
+        // Check if user email exists
+        if (!user) {
+            
+            alert("user not exists");
+
+
+            //halo=1;
+
+            // return res.status(404).json({
+            // 	error: "Email not found",
+            // });
+        }
+        else {
+            console.log(user);
+            res.json(user);
+
+        }
+    });
+});
 
 router.get("/ten", function (req, res) {
 
@@ -162,26 +211,60 @@ router.post("/sjac", function (req, res) {
 // POST request 
 // Add a user to db
 
+// router.post("/ur", (req, res) => {
+//     let h = 0;
+    
+    
+//     // const newUser = new User({
+//     //     name: req.body.name,
+//     //     email: req.body.email,
+//     //     password: req.body.password,
+//     //     contactNumber: req.body.contactNumber,
+//     //     age: req.body.age,
+//     //     batchName: req.body.batchName,
+//     //     wallet: h
+//     // });
+    
+//     // newUser.save()
+//     //     .then(user => {
+//     //         res.status(200).json(user);
+//     //     })
+//     //     .catch(err => {
+//     //         res.status(400).send(err);
+//     //     });
+// });
 router.post("/ur", (req, res) => {
-    let h = 0;
-    const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        contactNumber: req.body.contactNumber,
-        age: req.body.age,
-        batchName: req.body.batchName,
-        wallet: h
+    const email=req.body.email;
+    let h=0;
+    User.findOne({ email }, function(err, user) {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err); // Handle database error
+        } else if (user) {
+            console.log(user);
+            res.status(200).json({ message: 'Email already exists' });
+        } else {
+            const newUser = new User({
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password,
+                contactNumber: req.body.contactNumber,
+                age: req.body.age,
+                batchName: req.body.batchName,
+                wallet: h
+            });
+            console.log(newUser);
+            newUser.save()
+                .then(savedUser => {
+                    res.status(200).json(savedUser);
+                })
+                .catch(saveErr => {
+                    res.status(400).send(saveErr);
+                });
+        }
     });
-
-    newUser.save()
-        .then(user => {
-            res.status(200).json(user);
-        })
-        .catch(err => {
-            res.status(400).send(err);
-        });
 });
+
 
 
 
@@ -212,24 +295,37 @@ router.post("/placing", (req, res) => {
 });
 
 router.post("/vr", (req, res) => {
-    const newUser = new Vendor({
-        name: req.body.name,
-        shopname: req.body.shopname,
-        password: req.body.password,
-        email: req.body.email,
-        contactnumber: req.body.contactnumber,
-        opentime: req.body.opentime,
-        closetime: req.body.closetime,
-        counter:0
-    });
-
-    newUser.save()
-        .then(user => {
-            res.status(200).json(user);
-        })
-        .catch(err => {
-            res.status(400).send(err);
-        });
+    const email=req.body.email;
+    Vendor.findOne({ email }, function(err, user) {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err); // Handle database error
+        } else if (user) {
+            console.log(user);
+            res.status(200).json({ message: 'Email already exists' });
+        }
+        else {
+            const newUser = new Vendor({
+                name: req.body.name,
+                shopname: req.body.shopname,
+                password: req.body.password,
+                email: req.body.email,
+                contactnumber: req.body.contactnumber,
+                opentime: req.body.opentime,
+                closetime: req.body.closetime,
+                counter:0
+            });
+        
+            newUser.save()
+                .then(user => {
+                    res.status(200).json(user);
+                })
+                .catch(err => {
+                    res.status(400).send(err);
+                });
+            }
+    
+});
 });
 
 
@@ -945,6 +1041,7 @@ router.post("/emphasis", function (req, res) {
                         
                         if(user.counter<10){
                             users.status = "Accepted";
+                            user.money = user.money + users.quantity*users.price;
                             user.counter=user.counter+1;
                             
 
@@ -990,6 +1087,49 @@ router.post("/emphasis", function (req, res) {
     })
 });
 
+// router.post("/rating",function(req,res){
+//     const name1 = req.body.name;
+//     const email1 = req.body.email;
+//     const rat1 = req.body.rat;
+//     Food.findOne({name:name1,email:email1}.then(food=>{
+//         if(err){
+//             console.log(err);
+//             res.send("An error occured");
+//         }
+//         else{
+//             const prevrating = food.rating;
+//             const prevorders = food.soldcount;
+//             food.rating = Math.floor(((prevrating*prevorders)+rat1)/(prevorders+1));
+//             food.soldcount = prevorders+1;
+//             food.save();
+//             res.send("success");
+//         }
+//     }))
+// });
+
+
+router.post("/rating", (req, res) => {
+    const id = req.body.id;
+    const email = req.body.email;
+    const name = req.body.name;
+    const rating = req.body.rating;
+        console.log(id);
+        // Next, update the food item's rating and soldcount
+        Food.findOne({ email, name }, (err, foodItem) => {
+            foodItem.rating = (rating + (foodItem.soldcount * foodItem.rating)) / (foodItem.soldcount + 1);
+            foodItem.soldcount = foodItem.soldcount + 1;
+            foodItem.save((err) => {
+                console.log(id);
+                Order.findOne({ _id: id }, (err, order) => {
+                    order.ratstatus = "true";
+                    console.log("hu"+order);
+                    order.save()
+                    res.status(200).send('Rating updated successfully');
+                });
+            });
+        });
+      //  res.status(200).send('Rating updated successfully');
+    });
 
 
 
@@ -1013,6 +1153,53 @@ router.post("/emphasiser", function (req, res) {
         }
     })
 });
+
+// router.post("/vupdate", (req, res) => {
+//     const name = req.body.name;
+//     const email = req.body.email;
+//     const password = req.body.password;
+//     const contactNumber = req.body.contactnumber;
+//     const opentime = req.body.opentime;
+//     const closetime = req.body.closetime;
+//     const shopname = req.body.shopname;
+
+
+
+//     // Find user by email
+//     Vendor.findOne({ email }).then(user => {
+//         // Check if user email exists
+//         if (!user) {
+
+//             alert("user not exists");
+
+
+//             //halo=1;
+
+//             // return res.status(404).json({
+//             // 	error: "Email not found",
+//             // });
+//         }
+//         else {
+//             user.name = name;
+//             user.email = email;
+//             user.password = password;
+//             user.contactnumber = contactNumber;
+//             user.shopname = shopname;
+//             user.opentime = opentime;
+//             user.closetime = closetime;
+
+//             user.save();
+//             res.send("Updated");
+
+
+//         }
+//     });
+
+
+
+
+// });
+
 
 router.post("/vupdate", (req, res) => {
     const name = req.body.name;
@@ -1049,13 +1236,31 @@ router.post("/vupdate", (req, res) => {
             user.closetime = closetime;
 
             user.save();
-            res.send("Updated");
+    
+            Food.find({ email }).then(items => {
+                if (!items || items.length === 0) {
+                    // Handle the case where no items were found
+                } else {
+                    // Update each item in the array
+                    items.forEach(item => {
+                        item.opentime = opentime;
+                        item.closetime = closetime;
+                        item.save()
+                            .then(updatedItem => {
+                                console.log(item);
+                            })
+                            .catch(error => {
+                                console.log('error while updating the console');
+                            });
+                    });
+                }
+            });
+            res.send("updated");
 
 
         }
     });
-
-
+    
 
 
 });
