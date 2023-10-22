@@ -29,7 +29,7 @@ import Shu from "./components/common/statistics";
 import Sk from "./components/common/wallet";
 import Tp from "./components/common/toper";
 import Suba from "./components/common/dash";
-
+import PrivateRoute from "./PrivateRoute";
 
 
 function App() {
@@ -40,30 +40,32 @@ function App() {
           <Route path="users" element={<UsersList />} />
           <Route path="register" element={<Hehe1 />} />
           <Route path="Login" element={<Ul />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="buyer" element={<UsersList />} />
-          <Route path="ul" element={<Ul/>} />
-          <Route path="vl" element={<Vl />} />
-          <Route path="ur" element={<Ur />} />
-          <Route path="vr" element={<Vr />} />
-          <Route path="nav" element={<Na />} />
-          <Route path="navl" element={<Nal />} />
-          <Route path="uprofi" element={<Uhome />} />
-          <Route path="vprofi" element={<Vhome />} />
-          <Route path="addfood" element={<Addf />} />
-          <Route path="viewf" element={<Viewf />} />
-          <Route path="editingfood" element={<Edf />} />
-          <Route path="addtocart" element={<Adc />} />
-          <Route path="ulogout" element={<Ulog />} />
-          <Route path="vlogout" element={<Vlog />} />
-          <Route path="quantity" element={<Quq />} />
-          <Route path="carter" element={<Cart />} />
-          <Route path="aag" element={<Aag />} />
-          <Route path="Favour" element={<Favo />} />
-          <Route path="vstati" element={<Shu />} />
-          <Route path="Sk" element={<Sk />} />
-          <Route path="top" element={<Tp />} />
-          <Route path="Suba" element={<Suba />} />
+          <Route element = {<PrivateRoute/>}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="buyer" element={<UsersList />} />
+            <Route path="ul" element={<Ul/>} />
+            <Route path="vl" element={<Vl />} />
+            <Route path="ur" element={<Ur />} />
+            <Route path="vr" element={<Vr />} />
+            <Route path="nav" element={<Na />} />
+            <Route path="navl" element={<Nal />} />
+            <Route path="uprofi" element={<Uhome />} />
+            <Route path="vprofi" element={<Vhome />} />
+            <Route path="addfood" element={<Addf />} />
+            <Route path="viewf" element={<Viewf />} />
+            <Route path="editingfood" element={<Edf />} />
+            <Route path="addtocart" element={<Adc />} />
+            <Route path="ulogout" element={<Ulog />} />
+            <Route path="vlogout" element={<Vlog />} />
+            <Route path="quantity" element={<Quq />} />
+            <Route path="carter" element={<Cart />} />
+            <Route path="aag" element={<Aag />} />
+            <Route path="Favour" element={<Favo />} />
+            <Route path="vstati" element={<Shu />} />
+            <Route path="Sk" element={<Sk />} />
+            <Route path="top" element={<Tp />} />
+            <Route path="Suba" element={<Suba />} />
+          </Route>
       </Routes>
     </BrowserRouter>
   );
