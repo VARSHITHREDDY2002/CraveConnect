@@ -43,7 +43,7 @@ const Homersa = (props) => {
           Favourites Dishes...!
         </div>
         <Grid>
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid >
             <Paper>
               <Table size="small">
                 <TableHead>
