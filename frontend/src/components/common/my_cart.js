@@ -98,13 +98,13 @@ const FoodLista = (props) => {
 
   return (
     <>
-      <Navbarer activePage={activePage}/>
+      <Navbarer activePage={activePage} />
       <br />
       <div className="container">
         <h1 style={{ textAlign: "center" }}>My Cart</h1>
         <br />
         <Grid>
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid>
             <Paper>
               <Table size="small">
                 <TableHead>
