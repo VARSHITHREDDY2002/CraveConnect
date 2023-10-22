@@ -102,7 +102,12 @@ const Register = (props) => {
       <div className="container">
         <h1 style={{ textAlign: "center" }}>Enter details of food item </h1>
         <br />
-        <Grid container align={"center"} spacing={2}>
+        <Grid
+          container
+          align={"center"}
+          spacing={2}
+          style={{ justifyContent: "center" }}
+        >
           <Grid>
             <TextField
               label="Name"

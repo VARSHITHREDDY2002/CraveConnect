@@ -73,7 +73,7 @@ const FoodList = (props) => {
         <h1 style={{ textAlign: "center" }}>Current Status of Orders</h1>
         <br />
         <Grid>
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid>
             <Paper>
               <Table size="small">
                 <TableHead>
