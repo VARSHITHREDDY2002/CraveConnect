@@ -23,6 +23,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Navbarers from "../templates/nav2";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import StarRating from './StarRating';
 
 const FoodList = (props) => {
   const [users, setUsers] = useState([]);
@@ -91,7 +92,7 @@ const FoodList = (props) => {
                       <TableCell>{user.type}</TableCell>
                       <TableCell>{user.name}</TableCell>
                       <TableCell>
-                        {parseFloat(user.rating.toFixed(1))}
+                      <StarRating rating={parseFloat(user.rating.toFixed(1))}/>
                       </TableCell>
                       <TableCell>{user.price}</TableCell>
                       {/* <TableCell> <Button variant="contained" onClick={() => {
@@ -99,7 +100,7 @@ const FoodList = (props) => {
                         id: user._id,
 
                       };
-                    
+                    //parseFloat(user.rating.toFixed(1))
 
 
                       axios
