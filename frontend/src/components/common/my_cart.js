@@ -71,7 +71,8 @@ const FoodLista = (props) => {
         id: selectedUser._id,
         email: selectedUser.vemail,
         name: selectedUser.name,
-        rating: userRating, // The rating value selected by the user
+        rating: userRating,
+        quantity:selectedUser.quantity // The rating value selected by the user
       };
       console.log(ratingData);
       //setIsRatingVisible(false);

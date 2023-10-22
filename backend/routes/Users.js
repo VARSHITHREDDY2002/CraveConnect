@@ -1113,11 +1113,17 @@ router.post("/rating", (req, res) => {
     const email = req.body.email;
     const name = req.body.name;
     const rating = req.body.rating;
+    const quantity=req.body.quantity;
         console.log(id);
+        console.log(email);
+        console.log(name);
+        console.log(rating);
+        console.log(quantity);
+
         // Next, update the food item's rating and soldcount
         Food.findOne({ email, name }, (err, foodItem) => {
-            foodItem.rating = (rating + (foodItem.soldcount * foodItem.rating)) / (foodItem.soldcount + 1);
-            foodItem.soldcount = foodItem.soldcount + 1;
+            foodItem.rating = ((rating*quantity) + (foodItem.soldcount * foodItem.rating)) / (foodItem.soldcount + quantity);
+            foodItem.soldcount = foodItem.soldcount + quantity;
             foodItem.save((err) => {
                 console.log(id);
                 Order.findOne({ _id: id }, (err, order) => {

@@ -89,9 +89,9 @@ const Uprof = (props) => {
         id: localStorage.getItem("O_id"),
       };
 
-      axios.post("http://localhost:4000/user/macos", mli).then((response) => {
-        console.log(response.data);
-      });
+      // axios.post("http://localhost:4000/user/macos", mli).then((response) => {
+      //   console.log(response.data);
+      // });
 
       const ml = {
         email: localStorage.getItem("uemail"),
