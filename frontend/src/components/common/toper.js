@@ -24,107 +24,98 @@ import Navbarer from "../templates/nav1";
 import Navbarers from "../templates/nav2";
 
 const UsersList = (props) => {
-    const [users, setUsers] = useState([]);
-    const [sortedUsers, setSortedUsers] = useState([]);
-    const [sortName, setSortName] = useState(true);
-    const [searchText, setSearchText] = useState("");
-    const [hair, sethair] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [sortedUsers, setSortedUsers] = useState([]);
+  const [sortName, setSortName] = useState(true);
+  const [searchText, setSearchText] = useState("");
+  const [hair, sethair] = useState([]);
 
+  const nef = {
+    email: localStorage.getItem("uemail"),
+  };
 
-    const nef = {
-        email: localStorage.getItem("uemail"),
-    };
+  useEffect(() => {
+    axios
+      .post("http://localhost:4000/user/sjac", nef)
+      .then((response) => {
+        setUsers(response.data);
+        console.log(response.data);
+        setSortedUsers(response.data);
+        setSearchText("");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
+  const sortChange = () => {
+    let usersTemp = users;
+    const flag = sortName;
+    usersTemp.sort((a, b) => b.soldcount - a.soldcount);
+    setUsers(usersTemp);
+    sethair(usersTemp.slice(0, 5));
+    setSortName(!sortName);
+  };
 
-    useEffect(() => {
-        axios
-            .post("http://localhost:4000/user/sjac", nef)
-            .then((response) => {
-                setUsers(response.data);
-                console.log(response.data);
-                setSortedUsers(response.data);
-                setSearchText("");
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+  const sortChanger = () => {
+    let usersTemp = users;
+    const flag = sortName;
+    usersTemp.sort((a, b) => a.soldcount - b.soldcount);
+    setUsers(usersTemp);
+    sethair(usersTemp.slice(0, 5));
+    setSortName(!sortName);
+  };
 
-    const sortChange = () => {
-        let usersTemp = users;
-        const flag = sortName;
-        usersTemp.sort((a, b) => (b.soldcount - a.soldcount));
-        setUsers(usersTemp);
-        sethair(usersTemp.slice(0,5));
-        setSortName(!sortName);
-    };
+  const customFunction = (event) => {
+    console.log(event.target.value);
+    setSearchText(event.target.value);
+  };
 
-    
+  useEffect(() => {
+    sortChange();
+  }, []);
 
-
-    const sortChanger = () => {
-        let usersTemp = users;
-        const flag = sortName;
-        usersTemp.sort((a, b) => (a.soldcount - b.soldcount));
-        setUsers(usersTemp);
-        sethair(usersTemp.slice(0,5));
-        setSortName(!sortName);
-    };
-
-    const customFunction = (event) => {
-        console.log(event.target.value);
-        setSearchText(event.target.value);
-    };
-
-
-    useEffect(() => {
-
-        sortChange();
-
-    }, []);
-
-    return (
-        <div className="container">
-            <Navbarers />
-            <br />
-
-            <Grid container>
-
-                <Grid item xs={12} md={9} lg={9}>
-                    <Paper>
-                        <Table size="small">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell> Sr No.</TableCell>
-                                    <TableCell>
-                                        {" "}
-
-                                        ItemName
-                                        <Button onClick={sortChange}>
-                                            {<ArrowUpwardIcon />}
-                                        </Button>
-                                        <Button onClick={sortChanger}>
-                                            {<ArrowDownwardIcon />}
-                                        </Button>
-                                    </TableCell>
-                                    <TableCell>Count</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {hair.map((user, ind) => (
-                                    <TableRow key={ind}>
-                                        <TableCell>{ind}</TableCell>
-                                        <TableCell>{user.name}</TableCell>
-                                        <TableCell>{user.soldcount}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </div>
-    );
+  return (
+    <>
+      <Navbarers />
+      <br />
+      <div className="container">
+        <Grid container>
+          <Grid item xs={12} md={9} lg={9}>
+            <Paper>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell> Sr No.</TableCell>
+                    <TableCell>
+                      {" "}
+                      ItemName
+                      <Button onClick={sortChange}>
+                        {<ArrowUpwardIcon />}
+                      </Button>
+                      <Button onClick={sortChanger}>
+                        {<ArrowDownwardIcon />}
+                      </Button>
+                    </TableCell>
+                    <TableCell>Count</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {hair.map((user, ind) => (
+                    <TableRow key={ind}>
+                      <TableCell>{ind}</TableCell>
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>{user.soldcount}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
 };
 
 export default UsersList;

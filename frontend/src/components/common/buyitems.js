@@ -83,7 +83,11 @@ const Iod = (props) => {
                           let ewyuu = parseInt(user.closetime);
                           console.log(ewy);
 
-                          if (hour >= ewy && hour <= ewyuu && user.status === "Hide") {
+                          if (
+                            hour >= ewy &&
+                            hour <= ewyuu &&
+                            user.status === "Hide"
+                          ) {
                             return (
                               <Button
                                 variant="contained"

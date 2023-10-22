@@ -60,111 +60,113 @@ const UsersList = (props) => {
   };
 
   return (
-    <div className="container">
-      <Navbar/>
-      <br/>
-      <Grid container>
-        <Grid item xs={12} md={3} lg={3}>
-          <List component="nav" aria-label="mailbox folders">
-            <ListItem text>
-              <h1>Filters</h1>
-            </ListItem>
-          </List>
-        </Grid>
-        <Grid item xs={12} md={9} lg={9}>
-          <List component="nav" aria-label="mailbox folders">
-            <TextField
-              id="standard-basic"
-              label="Search"
-              fullWidth={true}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment>
-                    <IconButton>
-                      <SearchIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              // onChange={customFunction}
-            />
-          </List>
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={12} md={3} lg={3}>
-          <List component="nav" aria-label="mailbox folders">
-            <ListItem>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  Salary
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    id="standard-basic"
-                    label="Enter Min"
-                    fullWidth={true}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    id="standard-basic"
-                    label="Enter Max"
-                    fullWidth={true}
-                  />
-                </Grid>
-              </Grid>
-            </ListItem>
-            <Divider />
-            <ListItem divider>
-              <Autocomplete
-                id="combo-box-demo"
-                options={users}
-                getOptionLabel={(option) => option.name}
-                fullWidth
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Select Names"
-                    variant="outlined"
-                  />
-                )}
+    <>
+      <Navbar />
+      <br />
+      <div className="container">
+        <Grid container>
+          <Grid item xs={12} md={3} lg={3}>
+            <List component="nav" aria-label="mailbox folders">
+              <ListItem text>
+                <h1>Filters</h1>
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid item xs={12} md={9} lg={9}>
+            <List component="nav" aria-label="mailbox folders">
+              <TextField
+                id="standard-basic"
+                label="Search"
+                fullWidth={true}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton>
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                // onChange={customFunction}
               />
-            </ListItem>
-          </List>
+            </List>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={9} lg={9}>
-          <Paper>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell> Sr No.</TableCell>
-                  <TableCell>
-                    {" "}
-                    <Button onClick={sortChange}>
-                      {sortName ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
-                    </Button>
-                    Date
-                  </TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Email</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {users.map((user, ind) => (
-                  <TableRow key={ind}>
-                    <TableCell>{ind}</TableCell>
-                    <TableCell>{user.date}</TableCell>
-                    <TableCell>{user.name}</TableCell>
-                    <TableCell>{user.email}</TableCell>
+        <Grid container>
+          <Grid item xs={12} md={3} lg={3}>
+            <List component="nav" aria-label="mailbox folders">
+              <ListItem>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    Salary
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      id="standard-basic"
+                      label="Enter Min"
+                      fullWidth={true}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      id="standard-basic"
+                      label="Enter Max"
+                      fullWidth={true}
+                    />
+                  </Grid>
+                </Grid>
+              </ListItem>
+              <Divider />
+              <ListItem divider>
+                <Autocomplete
+                  id="combo-box-demo"
+                  options={users}
+                  getOptionLabel={(option) => option.name}
+                  fullWidth
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Names"
+                      variant="outlined"
+                    />
+                  )}
+                />
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid item xs={12} md={9} lg={9}>
+            <Paper>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell> Sr No.</TableCell>
+                    <TableCell>
+                      {" "}
+                      <Button onClick={sortChange}>
+                        {sortName ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
+                      </Button>
+                      Date
+                    </TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Email</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Paper>
+                </TableHead>
+                <TableBody>
+                  {users.map((user, ind) => (
+                    <TableRow key={ind}>
+                      <TableCell>{ind}</TableCell>
+                      <TableCell>{user.date}</TableCell>
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   );
 };
 

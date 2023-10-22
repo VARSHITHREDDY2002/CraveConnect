@@ -3,7 +3,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Navbarers from "../templates/nav2";
 
-
 const Prom = (props) => {
   const [details, setDetails] = useState([]);
   useEffect(() => {
@@ -16,13 +15,17 @@ const Prom = (props) => {
         console.log(error);
       });
   }, []);
-   
-  return <div className="container">
-    <Navbarers/>
-    <br/>
-    <h1 style={{ textAlign: "center" }}>Vendor Home</h1>
-    <br/>
-  </div>;
+
+  return (
+    <>
+      <Navbarers />
+      <br />
+      <div className="container">
+        <h1 style={{ textAlign: "center" }}>Vendor Home</h1>
+        <br />
+      </div>
+    </>
+  );
 };
 
 export default Prom;

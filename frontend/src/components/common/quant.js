@@ -17,44 +17,16 @@ const Uprof = (props) => {
   const [shopname, setshopname] = useState("");
   const [money, setmoney] = useState("");
 
-
-
-
-
-
   const navigate = useNavigate();
-
-
 
   const onChangequantity = (event) => {
     setquantity(event.target.value);
   };
 
-
   const newUser = {
-
-
     id: localStorage.getItem("O_id"),
     status: "Placed",
-
-
-
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   useEffect(() => {
     axios
@@ -67,86 +39,33 @@ const Uprof = (props) => {
         setbemail(localStorage.getItem("uemail"));
         setstatus(newUser.status);
         setshopname(response.data.shopname);
-
-
-
-
-
-
-
       });
-
   }, []);
-
-
-
-
-
-
-
-
-
 
   const netUser = {
-
-
     email: localStorage.getItem("uemail"),
-
-
-
   };
 
-
   useEffect(() => {
-    axios
-      .post("http://localhost:4000/user/tower", netUser)
-      .then((response) => {
-        console.log(response.data);
-        setmoney(response.data.wallet);
-
-
-
-
-
-
-
-      });
-
+    axios.post("http://localhost:4000/user/tower", netUser).then((response) => {
+      console.log(response.data);
+      setmoney(response.data.wallet);
+    });
   }, []);
 
-
   var today = new Date();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  var time =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
   const onSubmit = (event) => {
-
     var hello = parseInt(quantity);
     var amount = hello * price;
-
 
     if (money >= amount) {
       console.log(amount);
       console.log(money);
 
-
-
       event.preventDefault();
-
 
       const neeUser = {
         name: name,
@@ -156,124 +75,71 @@ const Uprof = (props) => {
         quantity: quantity,
         status: stats,
         shopname: shopname,
-        ordertime: time
-
-
-
+        ordertime: time,
       };
-
-
 
       axios
         .post("http://localhost:4000/user/placing", neeUser)
         .then((response) => {
           alert(response.data);
           console.log(response.data);
-
-
         });
-
-
-
-
 
       const mli = {
         id: localStorage.getItem("O_id"),
+      };
 
-      }
-
-
-
-      axios
-        .post("http://localhost:4000/user/macos", mli)
-        .then((response) => {
-
-          console.log(response.data);
-
-        });
-
+      axios.post("http://localhost:4000/user/macos", mli).then((response) => {
+        console.log(response.data);
+      });
 
       const ml = {
         email: localStorage.getItem("uemail"),
-        dd: amount
-      }
+        dd: amount,
+      };
 
-
-
-      axios
-        .post("http://localhost:4000/user/machine", ml)
-        .then((response) => {
-
-          console.log(response.data);
-          navigate("/carter");
-        });
-    }
-    else {
-
+      axios.post("http://localhost:4000/user/machine", ml).then((response) => {
+        console.log(response.data);
+        navigate("/carter");
+      });
+    } else {
       alert("Not enough money");
     }
 
-
-
-
-    // 
+    //
     // navigate("/uprofi");
-
-
-
-
-
   };
 
   //setName({hamm});
 
-
   //resetInputs();
 
+  return (
+    <>
+      <Navbarer />
 
+      <br />
 
+      <div className="container">
+        <Grid container align={"center"} spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Quantity"
+              variant="outlined"
+              value={quantity}
+              onChange={onChangequantity}
+            />
+          </Grid>
 
-  return (<div className="container">
-    <Navbarer />
-
-    <br />
-
-
-    <Grid container align={"center"} spacing={2}>
-      <Grid item xs={12}>
-        <TextField
-          label="Quantity"
-          variant="outlined"
-          value={quantity}
-          onChange={onChangequantity}
-        />
-      </Grid>
-
-      <Grid item xs={12}>
-
-        <Button variant="contained" onClick={onSubmit}>
-          OrderPlace
-        </Button>
-      </Grid>
-
-
-
-    </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-  </div>
+          <Grid item xs={12}>
+            <Button variant="contained" onClick={onSubmit}>
+              OrderPlace
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+    </>
   );
-
 };
 
 export default Uprof;

@@ -17,8 +17,7 @@ const Register = (props) => {
   const [opentime, setopentime] = useState("");
   const [closetime, setClosetime] = useState("");
   const [vendorname, setvendorname] = useState("");
-  
-
+  const [activePage, setActivePage] = useState("addfood");
 
   const onChangeUsername = (event) => {
     setName(event.target.value);
@@ -41,14 +40,9 @@ const Register = (props) => {
   };
 
   const newUsed = {
-
-
-    email:localStorage.getItem("uemail")
-
-
+    email: localStorage.getItem("uemail"),
   };
-console.log(newUsed);
-
+  console.log(newUsed);
 
   useEffect(() => {
     axios
@@ -59,20 +53,8 @@ console.log(newUsed);
         setopentime(response.data.opentime);
         setClosetime(response.data.closetime);
         setvendorname(response.data.name);
-        
-       
-       
-
-
-
-
-
       });
-
   }, []);
-
-
-  
 
   const resetInputs = () => {
     setName("");
@@ -80,15 +62,11 @@ console.log(newUsed);
     setPrice("");
     settype("");
     setrating("");
-  
-
-
-   
   };
 
-  let fg=0;
+  let fg = 0;
 
-  var nmv=0;
+  var nmv = 0;
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -96,17 +74,14 @@ console.log(newUsed);
     const newUser = {
       name: name,
       email: localStorage.getItem("uemail"),
-      price : price,
-      type : type,
-      rating : nmv,
-      shopname:shopname,
-      opentime:opentime,
-      closetime:closetime,
-      vendorname:vendorname,
-      soldcount:fg,
-
-      
-      
+      price: price,
+      type: type,
+      rating: nmv,
+      shopname: shopname,
+      opentime: opentime,
+      closetime: closetime,
+      vendorname: vendorname,
+      soldcount: fg,
     };
 
     axios
@@ -120,48 +95,47 @@ console.log(newUsed);
   };
 
   return (
-    <div className="container">
-    <Navbarers/>
-   
+    <>
+      <Navbarers activePage={activePage} />
 
-  
-   
+      <br />
+      <div className="container">
+        <h1 style={{ textAlign: "center" }}>Enter details of food item </h1>
+        <br />
+        <Grid container align={"center"} spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Name"
+              variant="outlined"
+              value={name}
+              onChange={onChangeUsername}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="price"
+              variant="outlined"
+              value={price}
+              onChange={onChangeprice}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="type"
+              variant="outlined"
+              value={type}
+              onChange={onChangetype}
+            />
+          </Grid>
 
-<br/><h1 style={{ textAlign: "center" }}>Enter details of food item </h1>
-    <br/>
-    <Grid container align={"center"} spacing={2}>
-      <Grid item xs={12}>
-        <TextField
-          label="Name"
-          variant="outlined"
-          value={name}
-          onChange={onChangeUsername}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="price"
-          variant="outlined"
-          value={price}
-          onChange={onChangeprice}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="type"
-          variant="outlined"
-          value={type}
-          onChange={onChangetype}
-        />
-      </Grid>
-      
-      <Grid item xs={12}>
-        <Button variant="contained" onClick={onSubmit}>
-          Add
-        </Button>
-      </Grid>
-    </Grid>
-    </div>
+          <Grid item xs={12}>
+            <Button variant="contained" onClick={onSubmit}>
+              Add
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+    </>
   );
 };
 

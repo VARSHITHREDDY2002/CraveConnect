@@ -14,7 +14,7 @@ import axios from "axios";
 
 const Homersa = (props) => {
   const [users, setUsers] = useState([]);
-  const [activePage, setActivePage] = useState('Favour');
+  const [activePage, setActivePage] = useState("Favour");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Homersa = (props) => {
 
   return (
     <>
-      <Navbarer activePage={activePage}/>
+      <Navbarer activePage={activePage} />
 
       <br />
       <br />

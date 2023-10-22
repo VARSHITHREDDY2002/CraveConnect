@@ -73,7 +73,7 @@ const Navbarer = (activePage) => {
             }}
           >
             <img
-              onClick={() => navigate("/Uprofi")}
+              onClick={() => navigate("/uprofi")}
               src={logo}
               alt="Logo"
               style={{ width: "70px", height: "70px", borderRadius: "50%" }}
@@ -91,6 +91,7 @@ const Navbarer = (activePage) => {
                   : "white",
               width: "20px",
               border: "1px solid black",
+              borderRadius: isaddtocartHovering ? "20px" : "",
             }}
             onClick={() => navigate("/addtocart")}
           >
@@ -108,6 +109,7 @@ const Navbarer = (activePage) => {
                   : "white",
               width: "20px",
               border: "1px solid black",
+              borderRadius: iscarterHovering ? "20px" : "",
             }}
             onClick={() => navigate("/carter")}
           >
@@ -125,6 +127,7 @@ const Navbarer = (activePage) => {
                   : "white",
               width: "20px",
               border: "1px solid black",
+              borderRadius: isuprofiHovering ? "20px" : "",
             }}
             onClick={() => navigate("/uprofi")}
           >
@@ -142,6 +145,7 @@ const Navbarer = (activePage) => {
                   : "white",
               width: "20px",
               border: "1px solid black",
+              borderRadius: isulogoutHovering ? "20px" : "",
             }}
             onClick={() => navigate("/ulogout")}
           >
@@ -159,6 +163,7 @@ const Navbarer = (activePage) => {
                   : "white",
               width: "20px",
               border: "1px solid black",
+              borderRadius: isFavorHovering ? "20px" : "",
             }}
             onClick={() => navigate("/Favour")}
           >
@@ -176,6 +181,7 @@ const Navbarer = (activePage) => {
                   : "white",
               width: "20px",
               border: "1px solid black",
+              borderRadius: isSkHovering ? "20px" : "",
             }}
             onClick={() => navigate("/Sk")}
           >

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -45,8 +44,8 @@ const UsersList = (props) => {
   const sortChange = () => {
     let usersTemp = users;
     const flag = sortName;
-    usersTemp.sort((a, b) => (a.price - b.price));
-      
+    usersTemp.sort((a, b) => a.price - b.price);
+
     setUsers(usersTemp);
     setSortName(!sortName);
   };
@@ -54,8 +53,8 @@ const UsersList = (props) => {
   const sortChangem = () => {
     let usersTemp = users;
     const flag = sortName;
-    usersTemp.sort((a, b) => (a.rating - b.rating));
-      
+    usersTemp.sort((a, b) => a.rating - b.rating);
+
     setUsers(usersTemp);
     setSortName(!sortName);
   };
@@ -66,87 +65,82 @@ const UsersList = (props) => {
   };
 
   return (
-    <div className="container">
-      <Navbarer/>
-      <br/>
-      <div>
-     <h1>Filters</h1>
-      <Button variant="contained" onClick={sortChange}>
-                       Sort Pricewise
-                    </Button></div>
-                    <div>
-                    <br/>
-                    <Button variant="contained" onClick={sortChangem}>
-                       Sort Ratingwise
-                    </Button>
-                    </div>
-      <Grid container>
-        <Grid item xs={12} md={3} lg={3}>
-          <List component="nav" aria-label="mailbox folders">
-            <ListItem text>
-             
-            </ListItem>
-          </List>
+    <>
+      <Navbarer />
+      <br />
+      <div className="container">
+        <div>
+          <h1>Filters</h1>
+          <Button variant="contained" onClick={sortChange}>
+            Sort Pricewise
+          </Button>
+        </div>
+        <div>
+          <br />
+          <Button variant="contained" onClick={sortChangem}>
+            Sort Ratingwise
+          </Button>
+        </div>
+        <Grid container>
+          <Grid item xs={12} md={3} lg={3}>
+            <List component="nav" aria-label="mailbox folders">
+              <ListItem text></ListItem>
+            </List>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={12} md={3} lg={3}>
-          <List component="nav" aria-label="mailbox folders">
-            <ListItem>
-              
-            </ListItem>
-            <Divider />
-            <ListItem divider>
-              <Autocomplete
-                id="combo-box-demo"
-                options={users}
-                getOptionLabel={(option) => option.name}
-                fullWidth
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Select Names"
-                    variant="outlined"
-                  />
-                )}
-              />
-            </ListItem>
-          </List>
-        </Grid>
-        <Grid item xs={12} md={9} lg={9}>
-          <Paper>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell> Sr No.</TableCell>
-                  <TableCell>
-                    {" "}
-                   
-                    Name
-                  </TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>Rating</TableCell>
-                  <TableCell>Shopname</TableCell>
-                  <TableCell>VendorName</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {users.map((user, ind) => (
-                  <TableRow key={ind}>
-                    <TableCell>{ind}</TableCell>
-                    <TableCell>{user.name}</TableCell>
-                    <TableCell>{user.price}</TableCell>
-                    <TableCell>{user.rating}</TableCell>
-                    <TableCell>{user.shopname}</TableCell>
-                    <TableCell>{user.vendorname}</TableCell>
+        <Grid container>
+          <Grid item xs={12} md={3} lg={3}>
+            <List component="nav" aria-label="mailbox folders">
+              <ListItem></ListItem>
+              <Divider />
+              <ListItem divider>
+                <Autocomplete
+                  id="combo-box-demo"
+                  options={users}
+                  getOptionLabel={(option) => option.name}
+                  fullWidth
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Names"
+                      variant="outlined"
+                    />
+                  )}
+                />
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid item xs={12} md={9} lg={9}>
+            <Paper>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell> Sr No.</TableCell>
+                    <TableCell> Name</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Rating</TableCell>
+                    <TableCell>Shopname</TableCell>
+                    <TableCell>VendorName</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Paper>
+                </TableHead>
+                <TableBody>
+                  {users.map((user, ind) => (
+                    <TableRow key={ind}>
+                      <TableCell>{ind}</TableCell>
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>{user.price}</TableCell>
+                      <TableCell>{user.rating}</TableCell>
+                      <TableCell>{user.shopname}</TableCell>
+                      <TableCell>{user.vendorname}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   );
 };
 

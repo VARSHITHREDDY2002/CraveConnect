@@ -15,9 +15,8 @@ const Uprof = (props) => {
   const [age, setAge] = useState("");
   const [batchName, setBatchName] = useState("");
   const [wallet, setwallet] = useState("");
-
+  const [activePage, setActivePage] = useState("uprofi");
   const navigate = useNavigate();
-
 
   const onChangeUsername = (event) => {
     setName(event.target.value);
@@ -43,27 +42,9 @@ const Uprof = (props) => {
     setBatchName(event.target.value);
   };
 
-
   const newUser = {
-
-
     emaile: localStorage.getItem("uemail"),
-
-
-
   };
-
-
-
-
-
-
-
-
-
-
-
-
 
   useEffect(() => {
     axios
@@ -76,43 +57,20 @@ const Uprof = (props) => {
         setAge(response.data.age);
         setBatchName(response.data.batchName);
         setwallet(response.data.wallet);
-
-
-
-
-
       });
-
   }, []);
 
-
-
   const resetInputs = () => {
-    setName({name});
-    setEmail({email});
-    setPassword({password});
-    setContactNumber({contactNumber});
-    setAge({age});
-    setBatchName({batchName});
-
-
-
+    setName({ name });
+    setEmail({ email });
+    setPassword({ password });
+    setContactNumber({ contactNumber });
+    setAge({ age });
+    setBatchName({ batchName });
   };
-
-
-
-
-
-
-
-
-
-
-
 
   const onSubmit = (event) => {
     event.preventDefault();
-
 
     const neeUser = {
       name: name,
@@ -121,10 +79,7 @@ const Uprof = (props) => {
       contactNumber: contactNumber,
       age: age,
       batchName: batchName,
-
     };
-
-
 
     axios
       .post("http://localhost:4000/user/bupdate", neeUser)
@@ -133,103 +88,80 @@ const Uprof = (props) => {
         console.log(response.data);
       });
 
-
-
     //
     // navigate("/uprofi");
-
-
-
-
-
   };
 
   //setName({hamm});
 
-
   //resetInputs();
 
+  return (
+    <>
+      <Navbarer activePage={activePage} />
+      <br />
+      <div className="container">
+        <div style={{ textAlign: "center" }}>Name : {name}</div>
+        <div style={{ textAlign: "center" }}>
+          ContactNumber : {contactNumber}
+        </div>
+        <div style={{ textAlign: "center" }}>Age : {age}</div>
+        <div style={{ textAlign: "center" }}>BatchName : {batchName}</div>
+        <div style={{ textAlign: "center" }}>wallet : {wallet}</div>
+        <br />
 
+        <Grid container align={"center"} spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Name"
+              variant="outlined"
+              value={name}
+              onChange={onChangeUsername}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Password"
+              variant="outlined"
+              // value={password}
+              value={"*".repeat(password.length)}
+              onChange={onChangePassword}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="ContactNumber"
+              variant="outlined"
+              value={contactNumber}
+              onChange={onChangecontactNumber}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Age"
+              variant="outlined"
+              value={age}
+              onChange={onChangeAge}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="BatchName"
+              variant="outlined"
+              value={batchName}
+              onChange={onChangebatchaName}
+            />
+          </Grid>
 
-
-  return (<div className="container">
-    <Navbarer />
-    <br />
-    <div style={{ textAlign: "center" }} >Name          : {name}</div>
-    <div style={{ textAlign: "center" }} >ContactNumber : {contactNumber}</div>
-    <div style={{ textAlign: "center" }} >Age           : {age}</div>
-    <div style={{ textAlign: "center" }} >BatchName     : {batchName}</div>
-    <div style={{ textAlign: "center" }} >wallet     : {wallet}</div>
-    <br />
-
-
-    <Grid container align={"center"} spacing={2}>
-      <Grid item xs={12}>
-        <TextField
-          label="Name"
-          variant="outlined"
-          value={name}
-          onChange={onChangeUsername}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="Password"
-          variant="outlined"
-          // value={password}
-          value={'*'.repeat(password.length)}
-          onChange={onChangePassword}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="ContactNumber"
-          variant="outlined"
-          value={contactNumber}
-          onChange={onChangecontactNumber}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="Age"
-          variant="outlined"
-          value={age}
-          onChange={onChangeAge}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="BatchName"
-          variant="outlined"
-          value={batchName}
-          onChange={onChangebatchaName}
-        />
-      </Grid>
-
-      <Grid item xs={12}>
-        <Button variant="contained" onClick={onSubmit}>
-          Update
-        </Button>
-      </Grid>
-
-
-
-    </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-  </div>
+          <Grid item xs={12}>
+            <Button variant="contained" onClick={onSubmit}>
+              Update
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+    </>
   );
-
 };
 
 export default Uprof;

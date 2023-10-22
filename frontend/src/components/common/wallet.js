@@ -9,61 +9,20 @@ import { useNavigate } from "react-router-dom";
 
 const Uprof = (props) => {
   const [wallet, setwallet] = useState("");
-  
-  
-
-
-  
+  const [activePage, setActivePage] = useState("Sk");
   const navigate = useNavigate();
-
- 
 
   const onChangewallet = (event) => {
     setwallet(event.target.value);
   };
 
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-  
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
   const onSubmit = (event) => {
     event.preventDefault();
 
-
     const neeUser = {
-      email :localStorage.getItem("uemail"),
-      wallet:wallet
-
+      email: localStorage.getItem("uemail"),
+      wallet: wallet,
     };
-
-
 
     axios
       .post("http://localhost:4000/user/walletism", neeUser)
@@ -71,66 +30,40 @@ const Uprof = (props) => {
         alert("Added Successfully");
         console.log(response.data);
       });
- 
 
-    
-    // 
+    //
     // navigate("/uprofi");
-
-
-
-
-
   };
 
   //setName({hamm});
 
-
   //resetInputs();
 
+  return (
+    <>
+      <Navbarer activePage={activePage} />
 
+      <br />
+      <div className="container">
+        <Grid container align={"center"} spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="AddMoney"
+              variant="outlined"
+              value={wallet}
+              onChange={onChangewallet}
+            />
+          </Grid>
 
-
-  return (<div className="container">
-    <Navbarer />
-
-    <br />
-
-
-    <Grid container align={"center"} spacing={2}>
-      <Grid item xs={12}>
-        <TextField
-          label="AddMoney"
-          variant="outlined"
-          value={wallet}
-          onChange={onChangewallet}
-        />
-      </Grid>
-
-      <Grid item xs={12}>
-        <Button variant="contained" onClick={onSubmit}>
-          Add Money
-        </Button>
-      </Grid>
-
-
-
-    </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-  </div>
+          <Grid item xs={12}>
+            <Button variant="contained" onClick={onSubmit}>
+              Add Money
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+    </>
   );
-
 };
 
 export default Uprof;

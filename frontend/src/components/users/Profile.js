@@ -3,7 +3,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Navbar from "../templates/Navbar";
 
-
 const Profile = (props) => {
   const [details, setDetails] = useState([]);
   useEffect(() => {
@@ -16,11 +15,13 @@ const Profile = (props) => {
         console.log(error);
       });
   }, []);
-  
-  return <div className="container">
-    <Navbar/>
-    <br/>
-  </div>;
+
+  return (
+    <>
+      <Navbar />
+      <br />
+    </>
+  );
 };
 
 export default Profile;

@@ -26,258 +26,231 @@ import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 
 const FoodList = (props) => {
-    const [users, setUsers] = useState([]);
-    const navigate = useNavigate();
-    const [yg, setyg] = useState(0);
-    var hello = 0;
-
-    var val = 1;
-
-
-
-
-
-
-    useEffect(() => {
-        const heh = {
-            email: localStorage.getItem("uemail")
-        }
-        axios
-            .post("http://localhost:4000/user/lela", heh)
-            .then((response) => {
-                setUsers(response.data);
-
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-
-
-        axios
-            .post("http://localhost:4000/user/lcu", heh)
-            .then((response) => {
-                setyg(response.data.counter);
-
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-
-
-    }, []);
-
-
-
-
-    // useEffect(() => {
-    //     const hehr = {
-    //         email: localStorage.getItem("uemail")
-    //     }
-    //     
-    // }, []);
-
-
-
-
-
-    return (
-        <div className="container">
-            <Navbarers />
-            <br />
-            <h1 style={{ textAlign: "center" }}>Current Status of Orders</h1>
-            <br />
-            <Grid>
-
-                <Grid item xs={12} md={9} lg={9}>
-                    <Paper>
-                        <Table size="small">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell> Sr No.</TableCell>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>BuyerEmail</TableCell>
-                                    <TableCell>Price</TableCell>
-                                    <TableCell>Quantity</TableCell>
-                                    <TableCell>Status</TableCell>
-                                    <TableCell>OrderTime</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {users.map((user, ind) => (
-                                    <TableRow key={ind}>
-                                        <TableCell>{ind}</TableCell>
-
-                                        <TableCell>{user.name}</TableCell>
-                                        <TableCell>{user.bemail}</TableCell>
-                                        <TableCell>{user.price}</TableCell>
-                                        <TableCell>{user.quantity}</TableCell>
-                                        <TableCell>{user.status}</TableCell>
-                                        <TableCell>{user.ordertime}</TableCell>
-                                        <TableCell>{(() => {
-
-
-
-                                            if (user.status != "ReadyforPickup" && user.status != "Rejected" && user.status != "completed") {
-
-                                                return <Button variant="contained" onClick={() => {
-
-
-
-
-
-
-                                                    const nth = {
-                                                        id: user._id,
-
-                                                    };
-
-                                                    axios
-                                                        .post("http://localhost:4000/user/emphasis", nth)
-                                                        .then((response) => {
-                                                            if (user.status === "Placed") {
-
-
-                                                                var templateParams = {
-                                                                    subject: user.shopname,
-                                                                    tomail: 'nithil99m2@gmail.com',
-                                                                    vendor: user.name,
-                                                                    message: 'Your order has been Accepted',
-
-
-
-
-                                                                };
-
-                                                                // template_ikeuk05
-
-
-                                                                emailjs.send('service_ti4v7h2', 'template_ikeuk05', templateParams, 'user_a2QmVasySjQNnNT8Aix7m')
-                                                                    .then(function (response) {
-                                                                        console.log('SUCCESS!', response.status, response.text);
-                                                                    }, function (error) {
-                                                                        console.log('FAILED...', error);
-                                                                    });
-                                                                
-                                                                    
-
-                                                            }
-                                                            alert(response.data);
-                                                            if (response.data === "Moved to the next stage") {
-                                                                window.location.reload(false);
-                                                                console.log(response.data);
-
-                                                            }
-
-
-                                                            
-                                                           
-
-
-                                                        });
-
-
-
-
-
-
-
-
-
-                                                }}>
-
-
-
-
-                                                    MovetoNextstage
-                                                </Button>
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+  const [yg, setyg] = useState(0);
+  const [activePage, setActivePage] = useState("aag");
+  var hello = 0;
+
+  var val = 1;
+
+  useEffect(() => {
+    const heh = {
+      email: localStorage.getItem("uemail"),
+    };
+    axios
+      .post("http://localhost:4000/user/lela", heh)
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .post("http://localhost:4000/user/lcu", heh)
+      .then((response) => {
+        setyg(response.data.counter);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // useEffect(() => {
+  //     const hehr = {
+  //         email: localStorage.getItem("uemail")
+  //     }
+  //
+  // }, []);
+
+  return (
+    <>
+      <Navbarers activePage={activePage} />
+
+      <br />
+      <div className="container">
+        <h1 style={{ textAlign: "center" }}>Current Status of Orders</h1>
+        <br />
+        <Grid>
+          <Grid item xs={12} md={9} lg={9}>
+            <Paper>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell> Sr No.</TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>BuyerEmail</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>OrderTime</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users.map((user, ind) => (
+                    <TableRow key={ind}>
+                      <TableCell>{ind}</TableCell>
+
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>{user.bemail}</TableCell>
+                      <TableCell>{user.price}</TableCell>
+                      <TableCell>{user.quantity}</TableCell>
+                      <TableCell>{user.status}</TableCell>
+                      <TableCell>{user.ordertime}</TableCell>
+                      <TableCell>
+                        {(() => {
+                          if (
+                            user.status != "ReadyforPickup" &&
+                            user.status != "Rejected" &&
+                            user.status != "completed"
+                          ) {
+                            return (
+                              <Button
+                                variant="contained"
+                                onClick={() => {
+                                  const nth = {
+                                    id: user._id,
+                                  };
+
+                                  axios
+                                    .post(
+                                      "http://localhost:4000/user/emphasis",
+                                      nth
+                                    )
+                                    .then((response) => {
+                                      if (user.status === "Placed") {
+                                        var templateParams = {
+                                          subject: user.shopname,
+                                          tomail: "nithil99m2@gmail.com",
+                                          vendor: user.name,
+                                          message:
+                                            "Your order has been Accepted",
+                                        };
+
+                                        // template_ikeuk05
+
+                                        emailjs
+                                          .send(
+                                            "service_ti4v7h2",
+                                            "template_ikeuk05",
+                                            templateParams,
+                                            "user_a2QmVasySjQNnNT8Aix7m"
+                                          )
+                                          .then(
+                                            function (response) {
+                                              console.log(
+                                                "SUCCESS!",
+                                                response.status,
+                                                response.text
+                                              );
+                                            },
+                                            function (error) {
+                                              console.log("FAILED...", error);
                                             }
+                                          );
+                                      }
+                                      alert(response.data);
+                                      if (
+                                        response.data ===
+                                        "Moved to the next stage"
+                                      ) {
+                                        window.location.reload(false);
+                                        console.log(response.data);
+                                      }
+                                    });
+                                }}
+                              >
+                                MovetoNextstage
+                              </Button>
+                            );
+                          }
+                        })()}
+                      </TableCell>
+                      <TableCell>
+                        {(() => {
+                          if (user.status == "Placed") {
+                            return (
+                              <Button
+                                variant="contained"
+                                onClick={() => {
+                                  var templateParams = {
+                                    subject: user.shopname,
+                                    tomail: "nithil99m2@gmail.com",
+                                    vendor: user.name,
+                                    message: "Your order has been rejected",
+                                  };
 
+                                  emailjs
+                                    .send(
+                                      "service_ti4v7h2",
+                                      "template_ikeuk05",
+                                      templateParams,
+                                      "user_a2QmVasySjQNnNT8Aix7m"
+                                    )
+                                    .then(
+                                      function (response) {
+                                        console.log(
+                                          "SUCCESS!",
+                                          response.status,
+                                          response.text
+                                        );
+                                      },
+                                      function (error) {
+                                        console.log("FAILED...", error);
+                                      }
+                                    );
 
+                                  const nth = {
+                                    id: user._id,
+                                  };
 
-                                        })()}
-                                        </TableCell>
-                                        <TableCell>{(() => {
-                                            if (user.status == "Placed") {
+                                  axios
+                                    .post(
+                                      "http://localhost:4000/user/emphasiser",
+                                      nth
+                                    )
+                                    .then((response) => {
+                                      alert(response.data);
+                                      window.location.reload(false);
+                                      console.log(response.data);
+                                    });
 
-                                                return <Button variant="contained" onClick={() => {
+                                  var qu = user.quantity;
+                                  var pr = user.price;
+                                  qu = qu * pr;
 
+                                  const sd = {
+                                    email: user.bemail,
+                                    addi: qu,
+                                  };
 
-                                                    var templateParams = {
-                                                        subject: user.shopname,
-                                                        tomail: 'nithil99m2@gmail.com',
-                                                        vendor: user.name,
-                                                        message: 'Your order has been rejected',
-
-
-
-                                                    };
-
-
-
-                                                    emailjs.send('service_ti4v7h2', 'template_ikeuk05', templateParams, 'user_a2QmVasySjQNnNT8Aix7m')
-                                                        .then(function (response) {
-                                                            console.log('SUCCESS!', response.status, response.text);
-                                                        }, function (error) {
-                                                            console.log('FAILED...', error);
-                                                        });
-
-
-                                                    const nth = {
-                                                        id: user._id,
-
-                                                    };
-
-
-                                                    axios
-                                                        .post("http://localhost:4000/user/emphasiser", nth)
-                                                        .then((response) => {
-                                                            alert(response.data);
-                                                            window.location.reload(false);
-                                                            console.log(response.data);
-                                                        });
-
-
-                                                    var qu = user.quantity;
-                                                    var pr = user.price;
-                                                    qu = qu * pr;
-
-                                                    const sd = {
-                                                        email: user.bemail,
-                                                        addi: qu
-
-                                                    }
-
-                                                    axios
-                                                        .post("http://localhost:4000/user/refund", sd)
-                                                        .then((response) => {
-
-
-                                                            console.log(response.data);
-                                                        });
-
-
-
-                                                }}>
-
-
-
-                                                    Reject
-                                                </Button>
-                                            }
-                                        })()}</TableCell>
-
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-
-                        </Table>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </div >
-    );
+                                  axios
+                                    .post(
+                                      "http://localhost:4000/user/refund",
+                                      sd
+                                    )
+                                    .then((response) => {
+                                      console.log(response.data);
+                                    });
+                                }}
+                              >
+                                Reject
+                              </Button>
+                            );
+                          }
+                        })()}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
 };
 
 export default FoodList;

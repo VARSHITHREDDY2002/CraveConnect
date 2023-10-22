@@ -23,189 +23,183 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Navbarer from "../templates/nav1";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
-
+import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
+import Typography from "@mui/material/Typography";
 
 const FoodLista = (props) => {
-    const [users, setUsers] = useState([]);
-    const navigate = useNavigate();
-   
+  const [users, setUsers] = useState([]);
+  const [activePage, setActivePage] = useState("carter");
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const mi = {
+      email: localStorage.getItem("uemail"),
+    };
+    axios
+      .post("http://localhost:4000/user/jm", mi)
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-    useEffect(() => {
+  const onSubmit = (event) => {};
 
+  const [selectedUser, setSelectedUser] = useState(null); // State to store the selected user
+  const [showButtons, setShowButtons] = useState(true); // State to manage button visibility
+  const [isRatingVisible, setIsRatingVisible] = useState(false); // State for rating visibility
+  const [userRating, setUserRating] = useState(0); // State to store the user's rating
 
-        const mi = {
-            email: localStorage.getItem("uemail")
-        }
-        axios
-            .post("http://localhost:4000/user/jm", mi)
-            .then((response) => {
-                setUsers(response.data);
+  const handleRateButtonClick = (user) => {
+    setIsRatingVisible(true);
+    setSelectedUser(user); // Store the selected user data
+  };
 
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+  const handleRatingChange = (event) => {
+    const newRating = parseInt(event.target.value, 10);
+    setUserRating(newRating);
+  };
 
-
-    const onSubmit = (event) => {
-
+  const handleSubmitRating = () => {
+    // Check if a user is selected
+    if (selectedUser) {
+      // Prepare the data to send to the backend
+      const ratingData = {
+        id: selectedUser._id,
+        email: selectedUser.vemail,
+        name: selectedUser.name,
+        rating: userRating, // The rating value selected by the user
+      };
+      console.log(ratingData);
+      //setIsRatingVisible(false);
+      //setShowButtons(false);
+      // Make an axios request to send the rating data to the backend
+      //    axios.post("http://localhost:4000/user/ratstatus",ratingData).then((response)=>{
+      //     console.log(response.data);
+      //    });
+      axios
+        .post("http://localhost:4000/user/rating", ratingData)
+        .then((response) => {
+          console.log("Rating submitted successfully:", response.data);
+          setIsRatingVisible(false);
+          setSelectedUser(null); // Clear the selected user data
+          setShowButtons(true); // Hide all the buttons
+          window.location.reload(false);
+        })
+        .catch((error) => {
+          console.error("Error submitting rating:", error);
+        });
+      //console.log(userRating);
     }
+  };
 
-    const [selectedUser, setSelectedUser] = useState(null); // State to store the selected user
-    const [showButtons, setShowButtons] = useState(true); // State to manage button visibility
-    const [isRatingVisible, setIsRatingVisible] = useState(false); // State for rating visibility
-    const [userRating, setUserRating] = useState(0); // State to store the user's rating
+  return (
+    <>
+      <Navbarer activePage={activePage}/>
+      <br />
+      <div className="container">
+        <h1 style={{ textAlign: "center" }}>My Cart</h1>
+        <br />
+        <Grid>
+          <Grid item xs={12} md={9} lg={9}>
+            <Paper>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell> Sr No.</TableCell>
 
-    const handleRateButtonClick = (user) => {
-        setIsRatingVisible(true);
-        setSelectedUser(user); // Store the selected user data
-    }
+                    <TableCell>Name</TableCell>
+                    <TableCell>vendor</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Shopname</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Ordertime</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users.map((user, ind) => (
+                    <TableRow key={ind}>
+                      <TableCell>{ind + 1}</TableCell>
 
-    const handleRatingChange = (event) => {
-        const newRating = parseInt(event.target.value, 10);
-        setUserRating(newRating);
-    }
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>{user.vemail}</TableCell>
+                      <TableCell>{user.price}</TableCell>
+                      <TableCell>{user.quantity}</TableCell>
+                      <TableCell>{user.shopname}</TableCell>
+                      <TableCell>{user.status}</TableCell>
+                      <TableCell>{user.ordertime}</TableCell>
+                      <TableCell>
+                        {(() => {
+                          if (user.status === "ReadyforPickup") {
+                            return (
+                              <Button
+                                variant="contained"
+                                onClick={() => {
+                                  const nth = {
+                                    id: user._id,
+                                  };
 
-    const handleSubmitRating = () => {
-        // Check if a user is selected
-        if (selectedUser) {
-            // Prepare the data to send to the backend
-            const ratingData = {
-                id : selectedUser._id,
-                email: selectedUser.vemail,
-                name: selectedUser.name,
-                rating: userRating, // The rating value selected by the user
-            };
-            console.log(ratingData);
-            //setIsRatingVisible(false);
-            //setShowButtons(false);
-           // Make an axios request to send the rating data to the backend
-        //    axios.post("http://localhost:4000/user/ratstatus",ratingData).then((response)=>{
-        //     console.log(response.data);
-        //    });
-            axios.post("http://localhost:4000/user/rating", ratingData)
-                .then((response) => {
-                    console.log('Rating submitted successfully:', response.data);
-                    setIsRatingVisible(false);
-                    setSelectedUser(null); // Clear the selected user data
-                    setShowButtons(true); // Hide all the buttons
-                    window.location.reload(false);
-
-                })
-                .catch((error) => {
-                    console.error('Error submitting rating:', error);
-                });
-            //console.log(userRating);
-        }
-    }
-
-    return (
-        <div className="container">
-            <Navbarer />
-            <br />
-            <h1 style={{ textAlign: "center" }}>My Cart</h1>
-    <br/>
-            <Grid>
-
-                <Grid item xs={12} md={9} lg={9}>
-                    <Paper>
-                        <Table size="small">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell> Sr No.</TableCell>
-
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>vendor</TableCell>
-                                    <TableCell>Price</TableCell>
-                                    <TableCell>Quantity</TableCell>
-                                    <TableCell>Shopname</TableCell>
-                                    <TableCell>Status</TableCell>
-                                    <TableCell>Ordertime</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {users.map((user, ind) => (
-                                    <TableRow key={ind}>
-                                        <TableCell>{ind+1}</TableCell>
-
-                                        <TableCell>{user.name}</TableCell>
-                                        <TableCell>{user.vemail}</TableCell>
-                                        <TableCell>{user.price}</TableCell>
-                                        <TableCell>{user.quantity}</TableCell>
-                                        <TableCell>{user.shopname}</TableCell>
-                                        <TableCell>{user.status}</TableCell>
-                                        <TableCell>{user.ordertime}</TableCell>
-                                        <TableCell>{(() => {
-                                            if (user.status === "ReadyforPickup") {
-                                                return <Button variant="contained" onClick={() => {
-                                                    
-
-                                                    const nth = {
-                                                        id: user._id,
-
-                                                    };
-
-                                                    axios
-                                                        .post("http://localhost:4000/user/emphasis", nth)
-                                                        .then((response) => {
-                                                            alert(response.data);
-                                                            window.location.reload(false);
-                                                            console.log(response.data);
-                                                        });
-
-
-                                                   
-
-
-
-                                                }}>
-
-
-
-                                                    PickUp
-                                                </Button>
-                                            }
-
-                                        })()}</TableCell>
-                                        <TableCell>
-                                        {user.status === 'completed' && user.ratstatus ==="false"? (
-                                    isRatingVisible && selectedUser === user ? (
-                                        <div>
-                                            <input
-                                                type="number"
-                                                min="0"
-                                                max="5"
-                                                value={userRating}
-                                                onChange={handleRatingChange}
-                                            />
-                                            <Button variant="contained" onClick={handleSubmitRating}>Submit Rating</Button>
-                                        </div>
-                                    ) : showButtons ? (
-                                        <Button variant="contained" onClick={() => handleRateButtonClick(user)}>Rate Item</Button>
-                                    ) : null
-                                ) : null}
-                                        </TableCell>
-
-
-
-
-
-
-
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </div >
-    );
+                                  axios
+                                    .post(
+                                      "http://localhost:4000/user/emphasis",
+                                      nth
+                                    )
+                                    .then((response) => {
+                                      alert(response.data);
+                                      window.location.reload(false);
+                                      console.log(response.data);
+                                    });
+                                }}
+                              >
+                                PickUp
+                              </Button>
+                            );
+                          }
+                        })()}
+                      </TableCell>
+                      <TableCell>
+                        {user.status === "completed" &&
+                        user.ratstatus === "false" ? (
+                          isRatingVisible && selectedUser === user ? (
+                            <div>
+                              <input
+                                type="number"
+                                min="0"
+                                max="5"
+                                value={userRating}
+                                onChange={handleRatingChange}
+                              />
+                              <Button
+                                variant="contained"
+                                onClick={handleSubmitRating}
+                              >
+                                Submit Rating
+                              </Button>
+                            </div>
+                          ) : showButtons ? (
+                            <Button
+                              variant="contained"
+                              onClick={() => handleRateButtonClick(user)}
+                            >
+                              Rate Item
+                            </Button>
+                          ) : null
+                        ) : null}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
+          </Grid>
+        </Grid>
+      </div>
+    </>
+  );
 };
 
 export default FoodLista;
