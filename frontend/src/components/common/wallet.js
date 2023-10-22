@@ -30,7 +30,7 @@ const Uprof = (props) => {
         alert("Added Successfully");
         console.log(response.data);
       });
-
+      setwallet("");
     //
     // navigate("/uprofi");
   };
