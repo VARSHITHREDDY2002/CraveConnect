@@ -24,6 +24,7 @@ const Homer = (props) => {
           <Button
             variant="contained"
             onClick={() => {
+              localStorage.setItem("uemail","");
               navigate("/Login");
             }}
           >
