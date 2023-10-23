@@ -336,66 +336,36 @@ router.post("/login", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-
     var halo = 0;
+
     // Find user by email
     User.findOne({ email }).then(user => {
         // Check if user email exists
         if (!user) {
-            Vendor.findOne({ email }).then(user => {
-                // Check if user email exists
-                if (!user) {
-
-                    return res.status(404).json({
-                        error: "Email not found",
-                    });
-                }
-                else {
-                    if (password === user.password) {
-
+            Vendor.findOne({ email }).then(vendor => {
+                // Check if vendor email exists
+                if (!vendor) {
+                    return res.send("Email not found");
+                } else {
+                    if (password === vendor.password) {
                         res.send("Vendor Logged In");
-
-
-
-                    }
-                    else {
+                    } else {
                         res.send("Passwords didn't match");
-
                     }
-
-                    return user;
+                    return vendor;
                 }
             });
-
-            //halo=1;
-
-            // return res.status(404).json({
-            // 	error: "Email not found",
-            // });
-        }
-        else {
+        } else {
             if (password === user.password) {
                 res.send("Buyer Logged In");
-
-
-
-
-
-
-            }
-            else {
+            } else {
                 res.send("Passwords didn't match");
-
             }
-
             return user;
         }
     });
-
-
-
-
 });
+
 
 
 router.post("/getinfo", (req, res) => {
@@ -720,6 +690,53 @@ router.post("/bupdate", (req, res) => {
 
 
 });
+
+
+router.post("/passwordupdate", (req, res) => {
+    // const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    // const contactNumber = req.body.contactNumber;
+    // const age = req.body.age;
+    // const batchName = req.body.batchName;
+
+    // Find user by email
+    User.findOne({ email }).then(user => {
+        // Check if user email exists
+        if (!user) {
+            Vendor.findOne({ email }).then(user2 => {
+                // Check if user email exists
+                if (!user2) {
+                    res.send("Email doesn't exist");
+                    // halo=1;
+                    // return res.status(404).json({
+                    //     error: "Email not found",
+                    // });
+                } else {
+                    user2.email = email;
+                    user2.password = password;
+                    // user.contactNumber = contactNumber;
+                    // user.age = age;
+                    // user.batchName = batchName;
+
+                    user2.save();
+                    res.send("A mail has been sent to you");
+                }
+            });
+        } else {
+            // user.name = name;
+            user.email = email;
+            user.password = password;
+            // user.contactNumber = contactNumber;
+            // user.age = age;
+            // user.batchName = batchName;
+
+            user.save();
+            res.send("A mail has been sent to you");
+        }
+    });
+});
+
 
 
 router.post("/machine", (req, res) => {
@@ -1071,7 +1088,11 @@ router.post("/emphasis", function (req, res) {
 
                     }
                     else{
-                        res.send("Moved to the next stage");
+                        const value={
+                            check:users.status,
+                            message:"Moved to next stage",
+                        }
+                        res.send(value);
 
                     }
         

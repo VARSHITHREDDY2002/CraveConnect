@@ -6,6 +6,11 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import IconButton from '@mui/material/IconButton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+// import './PasswordInput.css';
 
 const Uprof = (props) => {
   const [name, setName] = useState("");
@@ -18,6 +23,13 @@ const Uprof = (props) => {
   const [activePage, setActivePage] = useState("uprofi");
   const navigate = useNavigate();
 
+  
+  const [password1, setPassword1] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const onChangeUsername = (event) => {
     setName(event.target.value);
   };
@@ -110,7 +122,20 @@ const Uprof = (props) => {
         <div style={{ textAlign: "center" }}>wallet : {wallet}</div>
         <br />
 
-        <Grid container align={"center"} spacing={2}>
+        {/* <div className="password-input-container">
+      <TextField
+        label="Password"
+        variant="outlined"
+        type={showPassword ? 'text' : 'password'}
+        value={password1}
+        onChange={(e) => setPassword1(e.target.value)}
+      />
+      <IconButton onClick={togglePasswordVisibility}>
+        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+      </IconButton>
+         </div> */}
+
+        <Grid container align={"center"} spacing={2}  >
           <Grid item xs={12}>
             <TextField
               label="Name"
@@ -119,14 +144,25 @@ const Uprof = (props) => {
               onChange={onChangeUsername}
             />
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Password"
-              variant="outlined"
-              // value={password}
-              value={"*".repeat(password.length)}
-              onChange={onChangePassword}
-            />
+
+          <Grid item xs={12} style={{boxSizing:"border-box"}} >
+          <TextField
+        label="Password"
+        variant="outlined"
+        type={showPassword ? 'text' : 'password'}
+        value={password1}
+        onChange={(e) => setPassword1(e.target.value)}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton  onClick={togglePasswordVisibility}>
+        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+      </IconButton>
+            </InputAdornment>
+          ),
+        }
+      }
+      />
           </Grid>
           <Grid item xs={12}>
             <TextField
