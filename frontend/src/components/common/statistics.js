@@ -63,10 +63,10 @@ const Homersk = (props) => {
                       {(() => {
                         //console.log(user);
 
-                        if (user.status == "Placed") {
+                        if (user.status === "ReadyforPickup" && user.ratstatus==="false") {
                           hello = hello + 1;
                           // setUse(w);
-                        } else if (user.status == "completed") {
+                        } else if (user.ratstatus === "true"||user.status==="completed") {
                           yo = yo + 1;
                           // setUse(w);
                         } else {
@@ -83,9 +83,9 @@ const Homersk = (props) => {
         <div style={{ textAlign: "center" }}>
           Net Amount Received:{vendor}
           <br />
-          Orders delivered : {hello}
+          Orders completed : {hello}
           <br />
-          Orders completed : {yo}
+          Orders delivered : {yo}
           <br />
           Orders Pending : {ko}
         </div>

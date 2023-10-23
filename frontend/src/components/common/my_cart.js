@@ -150,7 +150,7 @@ const FoodLista = (props) => {
                                       nth
                                     )
                                     .then((response) => {
-                                      alert(response.data);
+                                      alert(response.data.message);
                                       window.location.reload(false);
                                       console.log(response.data);
                                     });

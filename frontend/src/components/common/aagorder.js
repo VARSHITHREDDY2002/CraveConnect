@@ -116,26 +116,52 @@ const FoodList = (props) => {
                                   axios
                                     .post(
                                       "http://localhost:4000/user/emphasis",
+
                                       nth
                                     )
                                     .then((response) => {
-                                      if (user.status === "Placed") {
-                                        var templateParams = {
-                                          subject: user.shopname,
-                                          tomail: "nithil99m2@gmail.com",
-                                          vendor: user.name,
-                                          message:
-                                            "Your order has been Accepted",
-                                        };
+                                      // emailjs
+                                      // .send(
+                                      //   "service_kco8l4i",
+                                      //   "template_tddvb9i",
+                                      //   {
+                                      //     to_mail: email,
+                                      //     message: message,
+                                      //   },
+                                      //   "YBRAgph4SiNcQNH2y"
+                                      // )
+                                      // .then((response) => {
+                                      //   console.log("Email sent successfully!", response);
+                                      //   axios
+                                      //   .post("http://localhost:4000/user/passwordupdate", newUser)
+                                      //   .then((response) => {
+                                      //     // alert("Successfully added");
+                                      //     // console.log(response.data);
+                                      //     alert(response.data);
+                                      //     navigate("/login");
+                                
+                                      //   });
+                                      if (response.data.check === "Accepted") {
+                                        // var templateParams = {
+                                        //   subject: user.shopname,
+                                        //   tomail: "nithil99m2@gmail.com",
+                                        //   vendor: user.name,
+                                        //   message:
+                                        //     "Your order has been Accepted",
+                                        // };
 
                                         // template_ikeuk05
-
+                                        const message = "Your order has been Accepted";
+                                        const email = user.bemail;
                                         emailjs
                                           .send(
-                                            "service_ti4v7h2",
-                                            "template_ikeuk05",
-                                            templateParams,
-                                            "user_a2QmVasySjQNnNT8Aix7m"
+                                            "service_kco8l4i",
+                                            "template_jasvmbe",
+                                                {
+                                                  to_mail: email,
+                                                  message: message,
+                                                },
+                                                "YBRAgph4SiNcQNH2y"
                                           )
                                           .then(
                                             function (response) {
@@ -150,10 +176,45 @@ const FoodList = (props) => {
                                             }
                                           );
                                       }
-                                      alert(response.data);
+                                      if (response.data.check === "ReadyforPickup") {
+                                        // var templateParams = {
+                                        //   subject: user.shopname,
+                                        //   tomail: "nithil99m2@gmail.com",
+                                        //   vendor: user.name,
+                                        //   message:
+                                        //     "Your order has been Accepted",
+                                        // };
+
+                                        // template_ikeuk05
+                                        const message = "Your order has been prepared.Please come and pickup";
+                                        const email = user.bemail;
+                                        emailjs
+                                          .send(
+                                            "service_kco8l4i",
+                                            "template_jasvmbe",
+                                                {
+                                                  to_mail: email,
+                                                  message: message,
+                                                },
+                                                "YBRAgph4SiNcQNH2y"
+                                          )
+                                          .then(
+                                            function (response) {
+                                              console.log(
+                                                "SUCCESS!",
+                                                response.status,
+                                                response.text
+                                              );
+                                            },
+                                            function (error) {
+                                              console.log("FAILED...", error);
+                                            }
+                                          );
+                                      }
+                                      alert(response.data.message);
                                       if (
-                                        response.data ===
-                                        "Moved to the next stage"
+                                        response.data.message===
+                                        "Moved to next stage"
                                       ) {
                                         window.location.reload(false);
                                         console.log(response.data);
@@ -174,32 +235,30 @@ const FoodList = (props) => {
                               <Button
                                 variant="contained"
                                 onClick={() => {
-                                  var templateParams = {
-                                    subject: user.shopname,
-                                    tomail: "nithil99m2@gmail.com",
-                                    vendor: user.name,
-                                    message: "Your order has been rejected",
-                                  };
-
-                                  emailjs
-                                    .send(
-                                      "service_ti4v7h2",
-                                      "template_ikeuk05",
-                                      templateParams,
-                                      "user_a2QmVasySjQNnNT8Aix7m"
-                                    )
-                                    .then(
-                                      function (response) {
-                                        console.log(
-                                          "SUCCESS!",
-                                          response.status,
-                                          response.text
-                                        );
-                                      },
-                                      function (error) {
-                                        console.log("FAILED...", error);
-                                      }
-                                    );
+                                  const message = "Your order has been Rejected";
+                                        const email = user.bemail;
+                                        emailjs
+                                          .send(
+                                            "service_kco8l4i",
+                                            "ttemplate_jasvmbe",
+                                                {
+                                                  to_mail: email,
+                                                  message: message,
+                                                },
+                                                "YBRAgph4SiNcQNH2y"
+                                          )
+                                          .then(
+                                            function (response) {
+                                              console.log(
+                                                "SUCCESS!",
+                                                response.status,
+                                                response.text
+                                              );
+                                            },
+                                            function (error) {
+                                              console.log("FAILED...", error);
+                                            }
+                                          );
 
                                   const nth = {
                                     id: user._id,

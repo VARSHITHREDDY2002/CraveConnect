@@ -9,6 +9,18 @@ import Navbar from "../templates/Navbar";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 
+function generateRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let randomString = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    randomString += characters.charAt(randomIndex);
+  }
+
+  return randomString;
+}
+
 const Register = (props) => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
@@ -23,25 +35,40 @@ const Register = (props) => {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(email);
+const message = generateRandomString(6);
+    const newUser={
+        email:email,
+        password:message,
+    };
     emailjs
       .send(
         "service_kco8l4i",
         "template_tddvb9i",
         {
           to_mail: email,
-          message: "123456",
+          message: message,
         },
         "YBRAgph4SiNcQNH2y"
       )
       .then((response) => {
         console.log("Email sent successfully!", response);
-        alert("A mail has been sent to you!!!");
+        axios
+        .post("http://localhost:4000/user/passwordupdate", newUser)
+        .then((response) => {
+          // alert("Successfully added");
+          // console.log(response.data);
+          alert(response.data);
+          navigate("/login");
+
+        });
+  
+
         resetInputs();
       })
       .catch((error) => {
         console.error("Email not sent:", error);
       });
-    navigate("/login");
+    // navigate("/login");
     resetInputs();
   };
 
