@@ -41,13 +41,13 @@ function App() {
         <Route path="register" element={<Hehe1 />} />
         <Route path="Login" element={<Ul />} />
         <Route path="fog" element={<Fog />} />
+        <Route path="ur" element={<Ur />} />
+        <Route path="vr" element={<Vr />} />
         <Route element={<PrivateRoute />}>
           <Route path="profile" element={<Profile />} />
           <Route path="buyer" element={<UsersList />} />
           <Route path="ul" element={<Ul />} />
           <Route path="vl" element={<Vl />} />
-          <Route path="ur" element={<Ur />} />
-          <Route path="vr" element={<Vr />} />
           <Route path="nav" element={<Na />} />
           <Route path="navl" element={<Nal />} />
           <Route path="uprofi" element={<Uhome />} />
