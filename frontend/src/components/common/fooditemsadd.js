@@ -100,13 +100,13 @@ const Register = (props) => {
 
       <br />
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>Enter details of food item </h1>
+        <h1 style={{ textAlign: "center", color: "#bd7454" }}>Enter details of food item </h1>
         <br />
         <Grid
           container
           align={"center"}
-          spacing={2}
-          style={{ justifyContent: "center" }}
+          spacing={4}
+          style={{ justifyContent: "center", flexDirection: "column" }}
         >
           <Grid>
             <TextField
@@ -116,6 +116,7 @@ const Register = (props) => {
               onChange={onChangeUsername}
             />
           </Grid>
+          <br />
           <Grid>
             <TextField
               label="price"
@@ -124,6 +125,7 @@ const Register = (props) => {
               onChange={onChangeprice}
             />
           </Grid>
+          <br />
           <Grid>
             <TextField
               label="type"
@@ -132,9 +134,15 @@ const Register = (props) => {
               onChange={onChangetype}
             />
           </Grid>
-
+          <br />
           <Grid>
-            <Button variant="contained" onClick={onSubmit}>
+            <Button
+              style={{
+                backgroundColor: "#ff8521",
+              }}
+              variant="contained"
+              onClick={onSubmit}
+            >
               Add
             </Button>
           </Grid>

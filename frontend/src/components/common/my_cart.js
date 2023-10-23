@@ -26,11 +26,24 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
+import { FaStar } from "react-icons/fa";
+
+const colors = {
+  orange: "#FFBA5A",
+  grey: "#a9a9a9",
+};
 
 const FoodLista = (props) => {
   const [users, setUsers] = useState([]);
   const [activePage, setActivePage] = useState("carter");
+  const [currentValue, setCurrentValue] = useState(0);
+  const stars = Array(5).fill(0);
+  const [hoverValue, setHoverValue] = useState(undefined);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("Current Value Updated:", currentValue);
+  }, [currentValue]);
 
   useEffect(() => {
     const mi = {
@@ -51,18 +64,29 @@ const FoodLista = (props) => {
   const [selectedUser, setSelectedUser] = useState(null); // State to store the selected user
   const [showButtons, setShowButtons] = useState(true); // State to manage button visibility
   const [isRatingVisible, setIsRatingVisible] = useState(false); // State for rating visibility
-  const [userRating, setUserRating] = useState(0); // State to store the user's rating
+  // const [userRating, setUserRating] = useState(0); // State to store the user's rating
 
   const handleRateButtonClick = (user) => {
     setIsRatingVisible(true);
     setSelectedUser(user); // Store the selected user data
   };
 
-  const handleRatingChange = (event) => {
-    const newRating = parseInt(event.target.value, 10);
-    setUserRating(newRating);
+  // const handleRatingChange = (event) => {
+  //   const newRating = parseInt(event.target.value, 10);
+  //   setUserRating(newRating);
+  // };
+  const handleClick = (value) => {
+    setCurrentValue(value);
+    console.log(currentValue);
   };
 
+  const handleMouseOver = (newHoverValue) => {
+    setHoverValue(newHoverValue);
+  };
+
+  const handleMouseLeave = () => {
+    setHoverValue(undefined);
+  };
   const handleSubmitRating = () => {
     // Check if a user is selected
     if (selectedUser) {
@@ -71,8 +95,8 @@ const FoodLista = (props) => {
         id: selectedUser._id,
         email: selectedUser.vemail,
         name: selectedUser.name,
-        rating: userRating,
-        quantity:selectedUser.quantity // The rating value selected by the user
+        rating: currentValue,
+        quantity: selectedUser.quantity, // The rating value selected by the user
       };
       console.log(ratingData);
       //setIsRatingVisible(false);
@@ -96,13 +120,23 @@ const FoodLista = (props) => {
       //console.log(userRating);
     }
   };
-
+  const styles = {
+    con: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    stars: {
+      display: "flex",
+      flexDirection: "row",
+    },
+  };
   return (
     <>
       <Navbarer activePage={activePage} />
       <br />
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>My Cart</h1>
+        <h1 style={{ textAlign: "center", color: "#bd7454" }}>My Cart</h1>
         <br />
         <Grid>
           <Grid>
@@ -125,7 +159,6 @@ const FoodLista = (props) => {
                   {users.map((user, ind) => (
                     <TableRow key={ind}>
                       <TableCell>{ind + 1}</TableCell>
-
                       <TableCell>{user.name}</TableCell>
                       <TableCell>{user.vemail}</TableCell>
                       <TableCell>{user.price}</TableCell>
@@ -138,6 +171,9 @@ const FoodLista = (props) => {
                           if (user.status === "ReadyforPickup") {
                             return (
                               <Button
+                                style={{
+                                  backgroundColor: "#ff8521",
+                                }}
                                 variant="contained"
                                 onClick={() => {
                                   const nth = {
@@ -166,15 +202,33 @@ const FoodLista = (props) => {
                         {user.status === "completed" &&
                         user.ratstatus === "false" ? (
                           isRatingVisible && selectedUser === user ? (
-                            <div>
-                              <input
-                                type="number"
-                                min="0"
-                                max="5"
-                                value={userRating}
-                                onChange={handleRatingChange}
-                              />
+                            <div style={styles.con}>
+                              <div style={styles.stars}>
+                                {stars.map((_, index) => (
+                                  <FaStar
+                                    key={index}
+                                    size={20}
+                                    onClick={() => handleClick(index + 1)}
+                                    onMouseOver={() =>
+                                      handleMouseOver(index + 1)
+                                    }
+                                    onMouseLeave={handleMouseLeave}
+                                    color={
+                                      (hoverValue || currentValue) > index
+                                        ? colors.orange
+                                        : colors.grey
+                                    }
+                                    style={{
+                                      marginRight: 10,
+                                      cursor: "pointer",
+                                    }}
+                                  />
+                                ))}
+                              </div>
                               <Button
+                                style={{
+                                  backgroundColor: "#ff8521",
+                                }}
                                 variant="contained"
                                 onClick={handleSubmitRating}
                               >
@@ -183,6 +237,9 @@ const FoodLista = (props) => {
                             </div>
                           ) : showButtons ? (
                             <Button
+                              style={{
+                                backgroundColor: "#ff8521",
+                              }}
                               variant="contained"
                               onClick={() => handleRateButtonClick(user)}
                             >

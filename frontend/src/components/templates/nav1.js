@@ -90,8 +90,8 @@ const Navbarer = (activePage) => {
                   ? "#fe8d04"
                   : "white",
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isaddtocartHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius: isaddtocartHovering || activePage.activePage === "addtocart" ? "20px" : "",
             }}
             onClick={() => navigate("/addtocart")}
           >
@@ -108,8 +108,8 @@ const Navbarer = (activePage) => {
                   ? "#fe8d04"
                   : "white",
               width: "20px",
-              border: "1px solid black",
-              borderRadius: iscarterHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius: iscarterHovering || activePage.activePage === "carter" ? "20px" : "",
             }}
             onClick={() => navigate("/carter")}
           >
@@ -126,8 +126,8 @@ const Navbarer = (activePage) => {
                   ? "#fe8d04"
                   : "white",
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isuprofiHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius: isuprofiHovering || activePage.activePage === "uprofi" ? "20px" : "",
             }}
             onClick={() => navigate("/uprofi")}
           >
@@ -144,8 +144,8 @@ const Navbarer = (activePage) => {
                   ? "#fe8d04"
                   : "white",
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isulogoutHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius: isulogoutHovering || activePage.activePage === "ulogout" ? "20px" : "",
             }}
             onClick={() => navigate("/ulogout")}
           >
@@ -162,8 +162,8 @@ const Navbarer = (activePage) => {
                   ? "#fe8d04"
                   : "white",
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isFavorHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius: isFavorHovering || activePage.activePage === "Favour"? "20px" : "",
             }}
             onClick={() => navigate("/Favour")}
           >
@@ -180,8 +180,8 @@ const Navbarer = (activePage) => {
                   ? "#fe8d04"
                   : "white",
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isSkHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius: isSkHovering || activePage.activePage === "Sk"? "20px" : "",
             }}
             onClick={() => navigate("/Sk")}
           >

@@ -19,12 +19,17 @@ const Homers = (props) => {
       <Navbarers activePage={activePage} />
       <br />
       <div className="container">
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", flexDirection: "column" }}>
           Click Yes if you want to Log out...!
+          <br />
+          <br />
           <Button
+            style={{
+              backgroundColor: "#e0403a",
+            }}
             variant="contained"
             onClick={() => {
-              localStorage.setItem("uemail","");
+              localStorage.setItem("uemail", "");
               navigate("/Login");
             }}
           >

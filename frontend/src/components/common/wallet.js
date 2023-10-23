@@ -30,7 +30,7 @@ const Uprof = (props) => {
         alert("Added Successfully");
         console.log(response.data);
       });
-      setwallet("");
+    setwallet("");
     //
     // navigate("/uprofi");
   };
@@ -56,7 +56,13 @@ const Uprof = (props) => {
           </Grid>
 
           <Grid item xs={12}>
-            <Button variant="contained" onClick={onSubmit}>
+            <Button
+              style={{
+                backgroundColor: "#ff8521",
+              }}
+              variant="contained"
+              onClick={onSubmit}
+            >
               Add Money
             </Button>
           </Grid>

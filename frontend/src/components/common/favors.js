@@ -34,18 +34,15 @@ const Homersa = (props) => {
   return (
     <>
       <Navbarer activePage={activePage} />
-
-      <br />
-      <br />
       <br />
       <div className="container">
-        <div style={{ textAlign: "center", color: "blue" }}>
-          Favourites Dishes...!
+        <div style={{ textAlign: "center", color: "#bd7454" }}>
+          <h1>Favourites Dishes</h1>
         </div>
         <Grid>
-          <Grid >
+          <Grid>
             <Paper>
-              <Table size="small">
+              <Table size="large">
                 <TableHead>
                   <TableRow>
                     <TableCell> Sr No.</TableCell>

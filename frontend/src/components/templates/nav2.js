@@ -98,8 +98,11 @@ const Navbarers = (activePage) => {
                   : "white",
 
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isitemsHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius:
+                isitemsHovering || activePage.activePage === "viewf"
+                  ? "20px"
+                  : "",
             }}
             onClick={() => navigate("/viewf")}
           >
@@ -117,8 +120,11 @@ const Navbarers = (activePage) => {
                   : "white",
 
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isprofileHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius:
+                isprofileHovering || activePage.activePage === "vprofi"
+                  ? "20px"
+                  : "",
             }}
             onClick={() => navigate("/vprofi")}
           >
@@ -136,8 +142,11 @@ const Navbarers = (activePage) => {
                   : "white",
 
               width: "20px",
-              border: "1px solid black",
-              borderRadius: islogoutHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius:
+                islogoutHovering || activePage.activePage === "vprofi"
+                  ? "20px"
+                  : "",
             }}
             onClick={() => navigate("/vlogout")}
           >
@@ -155,8 +164,11 @@ const Navbarers = (activePage) => {
                   : "white",
 
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isaddfoodHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius:
+                isaddfoodHovering || activePage.activePage === "addfood"
+                  ? "20px"
+                  : "",
             }}
             onClick={() => navigate("/addfood")}
           >
@@ -174,8 +186,11 @@ const Navbarers = (activePage) => {
                   : "white",
 
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isordersHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius:
+                isordersHovering || activePage.activePage === "aag"
+                  ? "20px"
+                  : "",
             }}
             onClick={() => navigate("/aag")}
           >
@@ -193,8 +208,11 @@ const Navbarers = (activePage) => {
                   : "white",
 
               width: "20px",
-              border: "1px solid black",
-              borderRadius: isvstatiHovering ? "20px" : "",
+              // border: "1px solid black",
+              borderRadius:
+                isvstatiHovering || activePage.activePage === "vstati"
+                  ? "20px"
+                  : "",
             }}
             onClick={() => navigate("/vstati")}
           >

@@ -132,7 +132,13 @@ const Uprof = (props) => {
           </Grid>
 
           <Grid item xs={12}>
-            <Button variant="contained" onClick={onSubmit}>
+            <Button
+              style={{
+                backgroundColor: "#ff8521",
+              }}
+              variant="contained"
+              onClick={onSubmit}
+            >
               OrderPlace
             </Button>
           </Grid>

@@ -70,7 +70,7 @@ const FoodList = (props) => {
 
       <br />
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>Current Status of Orders</h1>
+        <h1 style={{ textAlign: "center", color: "#bd7454" }}>Current Status of Orders</h1>
         <br />
         <Grid>
           <Grid>
@@ -107,6 +107,9 @@ const FoodList = (props) => {
                           ) {
                             return (
                               <Button
+                                style={{
+                                  backgroundColor: "#ff8521",
+                                }}
                                 variant="contained"
                                 onClick={() => {
                                   const nth = {
@@ -172,6 +175,9 @@ const FoodList = (props) => {
                           if (user.status == "Placed") {
                             return (
                               <Button
+                                style={{
+                                  backgroundColor: "#e0403a",
+                                }}
                                 variant="contained"
                                 onClick={() => {
                                   var templateParams = {

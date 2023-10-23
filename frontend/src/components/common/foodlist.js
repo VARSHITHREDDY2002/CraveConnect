@@ -23,7 +23,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Navbarers from "../templates/nav2";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import StarRating from './StarRating';
+import StarRating from "./StarRating";
 
 const FoodList = (props) => {
   const [users, setUsers] = useState([]);
@@ -70,7 +70,7 @@ const FoodList = (props) => {
       <Navbarers activePage={activePage} />
       <br />
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>My Food items list</h1>
+        <h1 style={{ textAlign: "center" , color: "#bd7454" }}>My Food items list</h1>
         <br />
         <Grid>
           <Grid>
@@ -92,7 +92,9 @@ const FoodList = (props) => {
                       <TableCell>{user.type}</TableCell>
                       <TableCell>{user.name}</TableCell>
                       <TableCell>
-                      <StarRating rating={parseFloat(user.rating.toFixed(1))}/>
+                        <StarRating
+                          rating={parseFloat(user.rating.toFixed(1))}
+                        />
                       </TableCell>
                       <TableCell>{user.price}</TableCell>
                       {/* <TableCell> <Button variant="contained" onClick={() => {
@@ -131,7 +133,10 @@ const FoodList = (props) => {
                                 console.log(response.data);
                               });
                           }}
-                          style={{ backgroundColor: "red", color: "white" }}
+                          style={{
+                            backgroundColor: "#e0403a",
+                            color: "white",
+                          }}
                         >
                           Delete
                         </Button>
@@ -140,6 +145,10 @@ const FoodList = (props) => {
                       <TableCell>
                         {" "}
                         <Button
+                        //f18940
+                          style={{
+                            backgroundColor:"#ff8521"
+                          }}
                           variant="contained"
                           onClick={() => onSubmit(user._id)}
                         >
@@ -149,6 +158,9 @@ const FoodList = (props) => {
                       <TableCell>
                         {" "}
                         <Button
+                          style={{
+                            backgroundColor:"#ff8521"
+                          }}
                           variant="contained"
                           onClick={() => onSubmit1(user._id)}
                         >

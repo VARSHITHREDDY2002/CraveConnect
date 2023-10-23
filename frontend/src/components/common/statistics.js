@@ -51,7 +51,7 @@ const Homersk = (props) => {
       <Navbarers activePage={activePage} />
       <br />
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>Statistics page</h1>
+        <h1 style={{ textAlign: "center" , color: "#bd7454" }}>Statistics</h1>
         <br />
         <Grid>
           <Grid item xs={12} md={9} lg={9}>
@@ -92,6 +92,9 @@ const Homersk = (props) => {
         <br />
         <div style={{ textAlign: "center" }}>
           <Button
+            style={{
+              backgroundColor: "#ff8521",
+            }}
             variant="contained"
             onClick={() => {
               navigate("/top");

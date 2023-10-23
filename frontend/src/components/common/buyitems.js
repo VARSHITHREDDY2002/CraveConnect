@@ -23,7 +23,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Navbarer from "../templates/nav1";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import StarRating from './StarRating';
+import StarRating from "./StarRating";
 
 const Iod = (props) => {
   const [users, setUsers] = useState([]);
@@ -49,7 +49,7 @@ const Iod = (props) => {
       <Navbarer activePage={activePage} />
       <br />
       <div className="container">
-        <h1 style={{ textAlign: "center" }}>Food items list</h1>
+        <h1 style={{ textAlign: "center" ,color: "#bd7454"}}>Food items list</h1>
         <br />
         <Grid>
           <Grid>
@@ -72,7 +72,12 @@ const Iod = (props) => {
                       <TableCell>{ind + 1}</TableCell>
                       <TableCell>{user.type}</TableCell>
                       <TableCell>{user.name}</TableCell>
-                      <TableCell> <StarRating rating={parseFloat(user.rating.toFixed(1))} /></TableCell>
+                      <TableCell>
+                        {" "}
+                        <StarRating
+                          rating={parseFloat(user.rating.toFixed(1))}
+                        />
+                      </TableCell>
                       <TableCell>{user.price}</TableCell>
                       <TableCell>{user.shopname}</TableCell>
                       {/* <TableCell>{user.vendorname}</TableCell> */}
@@ -97,6 +102,9 @@ const Iod = (props) => {
 
                                   navigate("/quantity");
                                 }}
+                                style={{
+                                  backgroundColor: "#ff8521",
+                                }}
                               >
                                 Order
                               </Button>
@@ -109,8 +117,7 @@ const Iod = (props) => {
                                   alert("Sorry Restaurant is Closed");
                                 }}
                                 style={{
-                                  backgroundColor: "red",
-                                  color: "white",
+                                  backgroundColor: "#e0403a",
                                 }}
                               >
                                 Unavailable
@@ -122,7 +129,11 @@ const Iod = (props) => {
                       <TableCell>
                         {" "}
                         <Button
+                          //#cc835d
                           variant="contained"
+                          style={{
+                            backgroundColor: "#ff8521",
+                          }}
                           onClick={() => {
                             const nUser = {
                               email: localStorage.getItem("uemail"),
