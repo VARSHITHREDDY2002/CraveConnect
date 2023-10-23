@@ -73,14 +73,11 @@ const Register = (props) => {
     };
 
     axios.post("http://localhost:4000/user/vr", newUser).then((response) => {
-        if(response.data.message)
-        {
-          alert(response.data.message);
-        }
-        else
-        {
+      if (response.data.message) {
+        alert(response.data.message);
+      } else {
         alert("Created\t" + response.data.name);
-        }
+      }
       console.log(response.data);
     });
 
@@ -151,7 +148,13 @@ const Register = (props) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" onClick={onSubmit}>
+            <Button
+              style={{
+                backgroundColor: "#bd7454",
+              }}
+              variant="contained"
+              onClick={onSubmit}
+            >
               Register
             </Button>
           </Grid>

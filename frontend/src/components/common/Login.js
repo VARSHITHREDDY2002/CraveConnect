@@ -66,6 +66,7 @@ const Register = (props) => {
               label="Email"
               variant="outlined"
               value={email}
+              autoComplete="off"
               onChange={onChangeEmail}
             />
           </Grid>
@@ -75,11 +76,30 @@ const Register = (props) => {
               label="Password"
               variant="outlined"
               value={password}
+              autoComplete="off"
               onChange={onChangePassword}
             />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" onClick={onSubmit}>
+            <a 
+            onClick={() => {navigate("/fog")}}
+            style={{ 
+              border:"none",
+              fontSize: "15px",
+              margin: "5px", 
+              padding: "2px", 
+              background:"transparent",
+              cursor: 'pointer',
+              }}>Forgot Password?</a>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              style={{
+                backgroundColor: "#bd7454",
+              }}
+              variant="contained"
+              onClick={onSubmit}
+            >
               Login
             </Button>
           </Grid>

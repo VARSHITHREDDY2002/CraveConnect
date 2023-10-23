@@ -1,6 +1,7 @@
 import * as React from "react";
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
+import Box from "@mui/material/Box";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -22,10 +23,10 @@ const NestedList = () => {
   const handleClick = () => {
     setOpen(!open);
   };
-
   return (
     <>
       <Navbar />
+      <br />
       <div className="container">
         <List
           sx={{ width: "100%", maxWidth: "50%", bgcolor: "background.paper" }}

@@ -29,7 +29,7 @@ const Register = (props) => {
   const onChangeEmail = (event) => {
     const newEmail = event.target.value;
     setEmail(newEmail); // Update the email state with the new value
-};
+  };
 
   const onChangePassword = (event) => {
     setPassword(event.target.value);
@@ -59,12 +59,11 @@ const Register = (props) => {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if(!email.endsWith("@nitc.ac.in"))
-     {
-       alert("email should ends with @nitc.ac.in");
-       setEmail("");
-       return;
-     }
+    if (!email.endsWith("@nitc.ac.in")) {
+      alert("email should ends with @nitc.ac.in");
+      setEmail("");
+      return;
+    }
     const newUser = {
       name: name,
       email: email,
@@ -75,14 +74,11 @@ const Register = (props) => {
     };
 
     axios.post("http://localhost:4000/user/ur", newUser).then((response) => {
-        if(response.data.message)
-        {
-          alert(response.data.message);
-        }
-        else
-        {
-      alert("Created\t" + response.data.name);
-        }
+      if (response.data.message) {
+        alert(response.data.message);
+      } else {
+        alert("Created\t" + response.data.name);
+      }
       console.log(response.data);
     });
 
@@ -116,6 +112,7 @@ const Register = (props) => {
               label="Password"
               variant="outlined"
               value={password}
+              autoComplete="off"
               onChange={onChangePassword}
             />
           </Grid>
@@ -144,7 +141,13 @@ const Register = (props) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" onClick={onSubmit}>
+            <Button
+              style={{
+                backgroundColor: "#bd7454",
+              }}
+              variant="contained"
+              onClick={onSubmit}
+            >
               Register
             </Button>
           </Grid>
