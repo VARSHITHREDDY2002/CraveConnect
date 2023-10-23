@@ -23,6 +23,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Navbarer from "../templates/nav1";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import StarRating from './StarRating';
 
 const Iod = (props) => {
   const [users, setUsers] = useState([]);
@@ -71,7 +72,7 @@ const Iod = (props) => {
                       <TableCell>{ind + 1}</TableCell>
                       <TableCell>{user.type}</TableCell>
                       <TableCell>{user.name}</TableCell>
-                      <TableCell>{user.rating}</TableCell>
+                      <TableCell> <StarRating rating={parseFloat(user.rating.toFixed(1))} /></TableCell>
                       <TableCell>{user.price}</TableCell>
                       <TableCell>{user.shopname}</TableCell>
                       {/* <TableCell>{user.vendorname}</TableCell> */}
