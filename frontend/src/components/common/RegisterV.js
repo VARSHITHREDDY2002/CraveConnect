@@ -5,11 +5,16 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Navbar from "../templates/Navbar";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
 
 const Register = (props) => {
   const [name, setName] = useState("");
   const [shopname, setShopName] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [contactnumber, setContactNumber] = useState("");
   const [opentime, setopentime] = useState("");
@@ -25,6 +30,10 @@ const Register = (props) => {
 
   const onChangePassword = (event) => {
     setPassword(event.target.value);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const onChangeEmail = (event) => {
@@ -96,6 +105,7 @@ const Register = (props) => {
               variant="outlined"
               value={name}
               onChange={onChangeUsername}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -104,14 +114,35 @@ const Register = (props) => {
               variant="outlined"
               value={shopname}
               onChange={onChangeShopName}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
+              style={{ width: "250px" }}
               label="Password"
               variant="outlined"
+              type={showPassword ? "text" : "password"}
               value={password}
+              autoComplete="off"
               onChange={onChangePassword}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={togglePasswordVisibility}
+                      edge="end"
+                      style={{ margin: "0px", padding: "0px", minWidth: "0px" }}
+                    >
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -120,6 +151,7 @@ const Register = (props) => {
               variant="outlined"
               value={email}
               onChange={onChangeEmail}
+              style={{ width: "250px" }}
             />
           </Grid>
 
@@ -129,6 +161,7 @@ const Register = (props) => {
               variant="outlined"
               value={contactnumber}
               onChange={onChangecontactNumber}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -137,6 +170,7 @@ const Register = (props) => {
               variant="outlined"
               value={opentime}
               onChange={onChangeOpentime}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -145,6 +179,7 @@ const Register = (props) => {
               variant="outlined"
               value={closetime}
               onChange={onChangeclosetime}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>

@@ -25,7 +25,7 @@ const Home = (props) => {
     textAlign: "center",
     textDecoration: "none",
     borderRadius: isRegisterHovering ? "50px" : "10px",
-    border: "1px solid black",
+    // border: "1px solid black",
   };
   const LogbuttonStyle = {
     backgroundColor: "#fe8d04",
@@ -34,7 +34,7 @@ const Home = (props) => {
     textAlign: "center",
     textDecoration: "none",
     borderRadius: isLoginHovering ? "50px" : "10px",
-    border: "1px solid black",
+    // border: "1px solid black",
   };
 
   const navigate = useNavigate();
