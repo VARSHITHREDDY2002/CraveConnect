@@ -15,6 +15,7 @@ import axios from "axios";
 const Homersa = (props) => {
   const [users, setUsers] = useState([]);
   const [activePage, setActivePage] = useState("Favour");
+  const [favours,setFavours]=useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +26,14 @@ const Homersa = (props) => {
       .post("http://localhost:4000/user/tenner", news)
       .then((response) => {
         setUsers(response.data.favs);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      axios
+      .post("http://localhost:4000/user/favourites", users)
+      .then((response) => {
+        setFavours(response.data.ans);
       })
       .catch((error) => {
         console.log(error);
@@ -51,11 +60,12 @@ const Homersa = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {users.map((user, ind) => (
+                  {favours.map((favour, ind) => (
                     <TableRow key={ind}>
                       <TableCell>{ind + 1}</TableCell>
 
-                      <TableCell>{user}</TableCell>
+                      <TableCell>{favour.name}</TableCell>
+                      <TableCell>{favour.shopname}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

@@ -88,7 +88,7 @@ const FoodList = (props) => {
                 <TableBody>
                   {users.map((user, ind) => (
                     <TableRow key={ind}>
-                      <TableCell>{ind}</TableCell>
+                      <TableCell>{ind+1}</TableCell>
                       <TableCell>{user.type}</TableCell>
                       <TableCell>{user.name}</TableCell>
                       <TableCell>

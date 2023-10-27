@@ -126,7 +126,7 @@ const Iod = (props) => {
                           }
                         })()}
                       </TableCell>
-                      <TableCell>
+                       <TableCell>
                         {" "}
                         <Button
                           //#cc835d
@@ -137,7 +137,7 @@ const Iod = (props) => {
                           onClick={() => {
                             const nUser = {
                               email: localStorage.getItem("uemail"),
-                              name: user.name,
+                              name: user._id
                             };
 
                             axios
@@ -150,7 +150,7 @@ const Iod = (props) => {
                         >
                           AddtoFav
                         </Button>
-                      </TableCell>
+                       </TableCell> 
                     </TableRow>
                   ))}
                 </TableBody>

@@ -152,7 +152,7 @@ const Navbarer = (activePage) => {
             Logout
           </Button>
           <Box sx={{ flexGrow: 0.1 }} />
-          <Button
+          {/* <Button
             onMouseEnter={handleFavourHover}
             onMouseLeave={handleFavourLeave}
             color="inherit"
@@ -168,8 +168,7 @@ const Navbarer = (activePage) => {
             onClick={() => navigate("/Favour")}
           >
             Favourites
-          </Button>
-          <Box sx={{ flexGrow: 0.1 }} />
+          </Button> */}
           <Button
             onMouseEnter={handleSkHover}
             onMouseLeave={handleSkLeave}
