@@ -6,10 +6,10 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import IconButton from '@mui/material/IconButton';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from "@mui/material/IconButton";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import InputAdornment from "@mui/material/InputAdornment";
 // import './PasswordInput.css';
 
 const Uprof = (props) => {
@@ -23,8 +23,7 @@ const Uprof = (props) => {
   const [activePage, setActivePage] = useState("uprofi");
   const navigate = useNavigate();
 
-  
-  const [password1, setPassword1] = useState('');
+  const [password1, setPassword1] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -135,37 +134,43 @@ const Uprof = (props) => {
       </IconButton>
          </div> */}
 
-        <Grid container align={"center"} spacing={2}  >
+        <Grid container align={"center"} spacing={2}>
           <Grid item xs={12}>
             <TextField
               label="Name"
               variant="outlined"
               value={name}
               onChange={onChangeUsername}
+              style={{ width: "250px" }}
             />
           </Grid>
 
-          <Grid item xs={12} style={{boxSizing:"border-box"}} >
-          <TextField
-        label="Password"
-        variant="outlined"
-        type={showPassword ? 'text' : 'password'}
-        value={password1}
-        onChange={(e) => setPassword1(e.target.value)}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton  onClick={togglePasswordVisibility}>
-        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-      </IconButton>
-            </InputAdornment>
-          ),
-        }
-      }
-      />
+          <Grid item xs={12} style={{ boxSizing: "border-box" }}>
+            <TextField
+              style={{ width: "250px" }}
+              label="Password"
+              variant="outlined"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={onChangePassword}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={togglePasswordVisibility} style={{margin:"0px", padding: "0px", minWidth:"0px"}}>
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
           </Grid>
           <Grid item xs={12}>
             <TextField
+              style={{ width: "250px" }}
               label="ContactNumber"
               variant="outlined"
               value={contactNumber}
@@ -174,6 +179,7 @@ const Uprof = (props) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
+              style={{ width: "250px" }}
               label="Age"
               variant="outlined"
               value={age}
@@ -182,6 +188,7 @@ const Uprof = (props) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
+              style={{ width: "250px" }}
               label="BatchName"
               variant="outlined"
               value={batchName}

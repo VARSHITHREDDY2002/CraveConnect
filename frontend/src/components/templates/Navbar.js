@@ -31,7 +31,7 @@ const Navbar = () => {
     display: "inline-block",
     fontSize: "15px",
     borderRadius: isRegisterHovering ? "50px" : "10px",
-    border: "1px solid black",
+    // border: "1px solid black",
   };
   const LogbuttonStyle = {
     backgroundColor: "#fe8d04",
@@ -43,7 +43,7 @@ const Navbar = () => {
     display: "inline-block",
     fontSize: "15px",
     borderRadius: isLoginHovering ? "50px" : "10px",
-    border: "1px solid black",
+    // border: "1px solid black",
   };
   return (
     <Box sx={{ flexGrow: 1 }}>

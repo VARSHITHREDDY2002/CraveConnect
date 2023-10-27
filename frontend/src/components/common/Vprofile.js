@@ -5,6 +5,10 @@ import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const Vprof = (props) => {
   const [name, setName] = useState("");
@@ -16,6 +20,7 @@ const Vprof = (props) => {
   const [closetime, setclosetime] = useState("");
   const [counter, setcounter] = useState("");
   const [activePage, setActivePage] = useState("vprofi");
+  const [showPassword, setShowPassword] = useState(false);
 
   const onChangeUsername = (event) => {
     setName(event.target.value);
@@ -27,6 +32,10 @@ const Vprof = (props) => {
 
   const onChangePassword = (event) => {
     setPassword(event.target.value);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const onChangeEmail = (event) => {
@@ -107,7 +116,7 @@ const Vprof = (props) => {
           ContactNumber : {contactnumber}
         </div>
         <div style={{ textAlign: "center" }}>Shopname : {shopname}</div>
-        <div style={{ textAlign: "center" }}>Counter : {counter}</div>
+        {/* <div style={{ textAlign: "center" }}>Counter : {counter}</div> */}
         <br />
         <Grid container align={"center"} spacing={2}>
           <Grid item xs={12}>
@@ -116,6 +125,7 @@ const Vprof = (props) => {
               variant="outlined"
               value={name}
               onChange={onChangeUsername}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -124,15 +134,33 @@ const Vprof = (props) => {
               variant="outlined"
               value={shopname}
               onChange={onChangeShopName}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
+              style={{ width: "250px" }}
               label="Password"
               variant="outlined"
-              // value={password}
-              value={"*".repeat(password.length)}
+              type={showPassword ? "text" : "password"}
+              value={password}
               onChange={onChangePassword}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={togglePasswordVisibility}
+                      style={{ margin: "0px", padding: "0px", minWidth: "0px" }}
+                    >
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -141,6 +169,7 @@ const Vprof = (props) => {
               variant="outlined"
               value={contactnumber}
               onChange={onChangecontactNumber}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -149,6 +178,7 @@ const Vprof = (props) => {
               variant="outlined"
               value={opentime}
               onChange={onChangeOpentime}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -157,6 +187,7 @@ const Vprof = (props) => {
               variant="outlined"
               value={closetime}
               onChange={onChangeclosetime}
+              style={{ width: "250px" }}
             />
           </Grid>
           <Grid item xs={12}>
