@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const DB_NAME = "tutorial"
 
 // routes
