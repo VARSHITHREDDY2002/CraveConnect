@@ -27,10 +27,10 @@ const UserSchema = new Schema({
 		type: String,
 		required: true
 	},
-	favs:{
-		type: Array,
-		required: false
-	},
+	// favs:{
+	// 	type: Array,
+	// 	required: false
+	// },
 	wallet:{
 		type: Number,
 		required: false,

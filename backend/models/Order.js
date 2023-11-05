@@ -35,16 +35,16 @@ const Orderschema = new Schema({
         type:String,
         required:false
     },
-	yes:{
-        type:Number,
-        required:false,
-		default:0
-    },
-	ant:{
-        type:Number,
-        required:false,
-		default:0
-    },
+	// yes:{
+    //     type:Number,
+    //     required:false,
+	// 	default:0
+    // },
+	// ant:{
+    //     type:Number,
+    //     required:false,
+	// 	default:0
+    // },
 	ratstatus:{
 		type:String,
         required:false,

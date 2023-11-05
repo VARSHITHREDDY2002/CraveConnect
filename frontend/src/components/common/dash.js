@@ -97,7 +97,7 @@ const UsersList = (props) => {
                 <Autocomplete
                   id="combo-box-demo"
                   options={users}
-                  getOptionLabel={(option) => option.name}
+                  OptionLabel={(option) => option.name}
                   fullWidth
                   renderInput={(params) => (
                     <TextField
