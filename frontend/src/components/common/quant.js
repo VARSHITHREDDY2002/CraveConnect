@@ -139,7 +139,7 @@ const Uprof = (props) => {
               variant="contained"
               onClick={onSubmit}
             >
-              OrderPlace
+              Order
             </Button>
           </Grid>
         </Grid>
